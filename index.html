@@ -1,364 +1,381 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-TW">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #4689cc; -webkit-text-stroke: #4689cc; background-color: #000000; background-color: rgba(0, 0, 0, 0)}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #c27e65; -webkit-text-stroke: #c27e65; background-color: #000000; background-color: rgba(0, 0, 0, 0)}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #8cd3fe; -webkit-text-stroke: #8cd3fe; background-color: #000000; background-color: rgba(0, 0, 0, 0)}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #cacaca; -webkit-text-stroke: #cacaca; background-color: #000000; background-color: rgba(0, 0, 0, 0)}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #6d7378; -webkit-text-stroke: #6d7378; background-color: #000000; background-color: rgba(0, 0, 0, 0)}
-    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #71c083; -webkit-text-stroke: #71c083; background-color: #000000; background-color: rgba(0, 0, 0, 0)}
-    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #cacaca; -webkit-text-stroke: #cacaca; background-color: #000000; background-color: rgba(0, 0, 0, 0); min-height: 16.0px}
-    span.s1 {font-kerning: none}
-    span.s2 {font-kerning: none; color: #8cd3fe; -webkit-text-stroke: 0px #8cd3fe}
-    span.s3 {font-kerning: none; color: #6d6d6d; -webkit-text-stroke: 0px #6d6d6d}
-    span.s4 {font-kerning: none; color: #4689cc; -webkit-text-stroke: 0px #4689cc}
-    span.s5 {font-kerning: none; color: #cacaca; -webkit-text-stroke: 0px #cacaca}
-    span.s6 {font-kerning: none; color: #c27e65; -webkit-text-stroke: 0px #c27e65}
-    span.s7 {font-kerning: none; color: #d4d4d4; -webkit-text-stroke: 0px #d4d4d4}
-    span.s8 {font-kerning: none; color: #b76ff7; -webkit-text-stroke: 0px #b76ff7}
-    span.s9 {font-kerning: none; color: #a7c598; -webkit-text-stroke: 0px #a7c598}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker 2026</title>
+    <!-- 1. 核心套件引入 -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'M PLUS Rounded 1c', sans-serif; 
+            -webkit-tap-highlight-color: transparent;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @keyframes fade-in { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        .animate-pop { animation: fade-in 0.3s ease-out forwards; }
+    </style>
 </head>
-<body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE</span><span class="s2"> html</span><span class="s1">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;</span><span class="s4">html</span><span class="s5"> </span><span class="s2">lang</span><span class="s3">=</span><span class="s1">"zh-TW"</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;</span><span class="s1">head</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">meta</span><span class="s5"> </span><span class="s1">charset</span><span class="s3">=</span><span class="s6">"UTF-8"</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">meta</span><span class="s5"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"viewport"</span><span class="s5"> </span><span class="s2">content</span><span class="s3">=</span><span class="s1">"width=device-width, initial-scale=1.0"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">title</span><span class="s3">&gt;</span><span class="s1">Habit Tracker 2026</span><span class="s3">&lt;/</span><span class="s4">title</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- 引入 React, Babel 與 Tailwind CSS --&gt;</span></p>
-<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">script</span><span class="s5"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://unpkg.com/react@18/umd/react.production.min.js"</span><span class="s3">&gt;&lt;/</span><span class="s4">script</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">script</span><span class="s5"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"</span><span class="s3">&gt;&lt;/</span><span class="s4">script</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">script</span><span class="s5"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://unpkg.com/@babel/standalone/babel.min.js"</span><span class="s3">&gt;&lt;/</span><span class="s4">script</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">script</span><span class="s5"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://cdn.tailwindcss.com"</span><span class="s3">&gt;&lt;/</span><span class="s4">script</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- 引入 Lucide 圖示 (UMD 版本) --&gt;</span></p>
-<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">script</span><span class="s5"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://unpkg.com/lucide@latest"</span><span class="s3">&gt;&lt;/</span><span class="s4">script</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">link</span><span class="s5"> </span><span class="s2">href</span><span class="s3">=</span><span class="s1">"https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&amp;display=swap"</span><span class="s5"> </span><span class="s2">rel</span><span class="s3">=</span><span class="s1">"stylesheet"</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s1">style</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s4">body</span><span class="s5"> </span><span class="s7">{</span><span class="s5"> </span><span class="s2">font-family:</span><span class="s5"> </span><span class="s1">'M PLUS Rounded 1c'</span><span class="s7">,</span><span class="s5"> </span><span class="s6">sans-serif</span><span class="s7">;</span><span class="s5"> </span><span class="s7">}</span></p>
-<p class="p1"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.no-scrollbar::-webkit-scrollbar</span><span class="s5"> </span><span class="s7">{</span><span class="s5"> </span><span class="s2">display:</span><span class="s5"> </span><span class="s6">none</span><span class="s7">;</span><span class="s5"> </span><span class="s7">}</span></p>
-<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s4">.no-scrollbar</span><span class="s5"> </span><span class="s7">{</span><span class="s5"> </span><span class="s1">-ms-overflow-style:</span><span class="s5"> </span><span class="s6">none</span><span class="s7">;</span><span class="s5"> </span><span class="s1">scrollbar-width:</span><span class="s5"> </span><span class="s6">none</span><span class="s7">;</span><span class="s5"> </span><span class="s7">}</span></p>
-<p class="p5"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">/* 簡單的動畫 */</span></p>
-<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s8">@keyframes</span><span class="s5"> </span><span class="s6">fade-in</span><span class="s5"> </span><span class="s7">{</span><span class="s5"> </span><span class="s6">from</span><span class="s5"> </span><span class="s7">{</span><span class="s5"> </span><span class="s1">opacity:</span><span class="s5"> </span><span class="s9">0</span><span class="s7">;</span><span class="s5"> </span><span class="s1">transform:</span><span class="s5"> </span><span class="s6">scale(</span><span class="s9">0.95</span><span class="s6">)</span><span class="s7">;</span><span class="s5"> </span><span class="s7">}</span><span class="s5"> </span><span class="s6">to</span><span class="s5"> </span><span class="s7">{</span><span class="s5"> </span><span class="s1">opacity:</span><span class="s5"> </span><span class="s9">1</span><span class="s7">;</span><span class="s5"> </span><span class="s1">transform:</span><span class="s5"> </span><span class="s6">scale(</span><span class="s9">1</span><span class="s6">)</span><span class="s7">;</span><span class="s5"> </span><span class="s7">}</span><span class="s5"> </span><span class="s7">}</span></p>
-<p class="p2"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s4">.animate-pop</span><span class="s5"> </span><span class="s7">{</span><span class="s5"> </span><span class="s2">animation:</span><span class="s5"> </span><span class="s1">fade-in</span><span class="s5"> </span><span class="s9">0.3s</span><span class="s5"> </span><span class="s1">ease-out</span><span class="s5"> </span><span class="s1">forwards</span><span class="s7">;</span><span class="s5"> </span><span class="s7">}</span></p>
-<p class="p1"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">style</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;/</span><span class="s1">head</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;</span><span class="s4">body</span><span class="s5"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-slate-900"</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">div</span><span class="s5"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"root"</span><span class="s3">&gt;&lt;/</span><span class="s4">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">script</span><span class="s5"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"text/babel"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const { useState, useEffect, useRef } = React;</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>// 預設習慣</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const DEFAULT_HABITS = [</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>{ id: 'water', title: 'Waterllama 達標', icon: 'droplets', color: 'cyan', goalPerWeek: 5, unit: '天' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>{ id: 'steps', title: '日走 7000 步', icon: 'footprints', color: 'orange', goalPerWeek: 7, unit: '步' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>{ id: 'juc', title: '啾C 課程', icon: 'activity', color: 'pink', goalPerWeek: 3, unit: '次' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>{ id: 'stretch', title: '晚間拉筋 15min', icon: 'moon', color: 'indigo', goalPerWeek: 7, unit: '晚' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>{ id: 'weight', title: '重訓', icon: 'dumbbell', color: 'emerald', goalPerWeek: 4, unit: '次' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>{ id: 'luna', title: 'Luna 訓練', icon: 'dog', color: 'violet', goalPerWeek: 5, unit: '次' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>];</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const COLOR_THEMES = {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>cyan: { from: 'from-cyan-400', to: 'to-blue-500', text: 'text-cyan-500', bg: 'bg-cyan-500' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>orange: { from: 'from-orange-400', to: 'to-red-500', text: 'text-orange-500', bg: 'bg-orange-500' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>pink: { from: 'from-pink-400', to: 'to-rose-500', text: 'text-pink-500', bg: 'bg-pink-500' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>indigo: { from: 'from-indigo-400', to: 'to-purple-500', text: 'text-indigo-500', bg: 'bg-indigo-500' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>emerald: { from: 'from-emerald-400', to: 'to-green-500', text: 'text-emerald-500', bg: 'bg-emerald-500' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>yellow: { from: 'from-yellow-400', to: 'to-amber-500', text: 'text-yellow-500', bg: 'bg-yellow-500' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>violet: { from: 'from-violet-400', to: 'to-fuchsia-500', text: 'text-violet-500', bg: 'bg-violet-500' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>// Lucide 圖示渲染組件</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const Icon = ({ name, size = 20, className = "" }) =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const ref = useRef(null);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>useEffect(() =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>if (ref.current) {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>ref.current.innerHTML = lucide.createIcons({</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>icons: { [name]: true },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>attrs: { strokeWidth: 2, width: size, height: size }</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>})[name];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>}, [name, size]);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>return &lt;i ref={ref} className={`inline-block ${className}`} /&gt;;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>// 輔助函式</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const getDateString = (date) =&gt; date.toISOString().split('T')[0];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const getWeekStart = (date) =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const d = new Date(date);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const day = d.getDay();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const diff = d.getDate() - (day === 0 ? 6 : day - 1);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>d.setDate(diff);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>d.setHours(0,0,0,0);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>return d;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const getDaysInWeek = (startDate) =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const days = [];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>for (let i = 0; i &lt; 7; i++) {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const d = new Date(startDate);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>d.setDate(d.getDate() + i);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>days.push(getDateString(d));</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>return days;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const calculateWeeklyProgress = (habitId, date, logs) =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const start = getWeekStart(date);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const weekDays = getDaysInWeek(start);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>let count = 0;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>weekDays.forEach(d =&gt; { if (logs[`${habitId}-${d}`]) count++; });</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>return count;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>function App() {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [logs, setLogs] = useState({});</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [habits, setHabits] = useState(DEFAULT_HABITS);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [currentDate, setCurrentDate] = useState(new Date());</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [view, setView] = useState('daily');</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [themeMode, setThemeMode] = useState('night');</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [isEditing, setIsEditing] = useState(false);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [isSettingsOpen, setIsSettingsOpen] = useState(false);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [editingHabit, setEditingHabit] = useState(null);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [celebration, setCelebration] = useState(null);</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>useEffect(() =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const savedLogs = localStorage.getItem('habit2026_logs');</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const savedHabits = localStorage.getItem('habit2026_list');</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>if (savedLogs) setLogs(JSON.parse(savedLogs));</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>if (savedHabits) setHabits(JSON.parse(savedHabits));</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const hour = new Date().getHours();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>setThemeMode(hour &gt;= 6 &amp;&amp; hour &lt; 18 ? 'day' : 'night');</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>}, []);</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>useEffect(() =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>localStorage.setItem('habit2026_logs', JSON.stringify(logs));</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>localStorage.setItem('habit2026_list', JSON.stringify(habits));</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>}, [logs, habits]);</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const theme = {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>day: { bg: 'bg-stone-100', textMain: 'text-stone-800', textSub: 'text-stone-500', cardBg: 'bg-white', cardBorder: 'border-stone-200', headerGradient: 'from-emerald-600 to-teal-600', buttonActive: 'bg-stone-200 text-stone-800', buttonInactive: 'text-stone-400', navBg: 'bg-white/50', glow: 'bg-emerald-400/20' },</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>night: { bg: 'bg-slate-950', textMain: 'text-slate-200', textSub: 'text-slate-400', cardBg: 'bg-slate-800', cardBorder: 'border-slate-700', headerGradient: 'from-blue-400 to-purple-400', buttonActive: 'bg-slate-600 text-white', buttonInactive: 'text-slate-400', navBg: 'bg-slate-800/50', glow: 'bg-blue-600/10' }</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>}[themeMode];</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const toggleHabit = (id, dateStr) =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const key = `${id}-${dateStr}`;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>setLogs(prev =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>const next = { ...prev };</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>if (next[key]) delete next[key];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>else {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>next[key] = true;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>setCelebration("做得好！");</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>setTimeout(() =&gt; setCelebration(null), 1500);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>return next;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const exportData = () =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const data = { logs, habits };</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const a = document.createElement('a');</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>a.href = URL.createObjectURL(blob);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>a.download = `habit-backup-${getDateString(new Date())}.json`;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>a.click();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const importData = (e) =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const file = e.target.files[0];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>if (!file) return;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const reader = new FileReader();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>reader.onload = (event) =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>try {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>const data = JSON.parse(event.target.result);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>if (data.logs) setLogs(data.logs);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>if (data.habits) setHabits(data.habits);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>alert('匯入成功！');</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>} catch (err) { alert('匯入失敗'); }</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>};</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>reader.readAsText(file);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const handleSaveHabit = (e) =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>e.preventDefault();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const formData = new FormData(e.target);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const newHabit = {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>id: editingHabit?.id || `h-${Date.now()}`,</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>title: formData.get('title'),</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>goalPerWeek: parseInt(formData.get('goalPerWeek')),</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>unit: formData.get('unit'),</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>icon: editingHabit?.icon || 'sparkles',</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>color: editingHabit?.color || 'cyan',</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>};</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>if (editingHabit) setHabits(habits.map(h =&gt; h.id === newHabit.id ? newHabit : h));</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>else setHabits([...habits, newHabit]);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>setIsEditing(false);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>setEditingHabit(null);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>// 滑動卡片組件 (整合版)</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const HabitCard = ({ habit }) =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const dateStr = getDateString(currentDate);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const isDone = !!logs[`${habit.id}-${dateStr}`];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const color = COLOR_THEMES[habit.color];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const progress = calculateWeeklyProgress(habit.id, currentDate, logs);</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>return (</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div<span class="Apple-converted-space"> </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>onClick={() =&gt; toggleHabit(habit.id, dateStr)}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>className={`p-4 rounded-2xl border transition-all cursor-pointer relative overflow-hidden mb-4 ${isDone ? `bg-gradient-to-r ${color.from} ${color.to} border-transparent text-white shadow-lg scale-[1.02]` : `${theme.cardBg} ${theme.cardBorder} ${theme.textMain}`}`}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className="flex justify-between items-center relative z-10"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="flex items-center gap-4"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className={`p-3 rounded-xl ${isDone ? 'bg-white/20' : 'bg-stone-100 dark:bg-slate-700'}`}&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;Icon name={habit.icon} size={24} /&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="font-bold text-lg"&gt;{habit.title}&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className={`text-xs ${isDone ? 'text-white/80' : theme.textSub}`}&gt;本週目標: {progress}/{habit.goalPerWeek} {habit.unit}&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all ${isDone ? 'bg-white border-white' : 'border-current opacity-20'}`}&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>{isDone &amp;&amp; &lt;Icon name="check" size={18} className={color.text} /&gt;}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const WeeklyTable = () =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const start = getWeekStart(currentDate);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const weekDays = getDaysInWeek(start);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const labels = ['一', '二', '三', '四', '五', '六', '日'];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>return (</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div className="overflow-x-auto pb-10"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className="min-w-[400px]"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="grid grid-cols-[80px_repeat(7,1fr)] gap-2 mb-4 text-center"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className={`text-left text-xs font-bold ${theme.textSub}`}&gt;習慣&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>{labels.map((l, i) =&gt; (</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div key={i} className={`flex flex-col items-center`}&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;span className={`text-[10px] opacity-50`}&gt;{weekDays[i].split('-')[2]}&lt;/span&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;span className={`text-sm font-bold ${theme.textMain}`}&gt;{l}&lt;/span&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>))}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>{habits.map(h =&gt; (</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div key={h.id} className="grid grid-cols-[80px_repeat(7,1fr)] gap-2 items-center mb-3"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className={`text-xs font-bold truncate ${theme.textMain}`}&gt;{h.title}&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>{weekDays.map(d =&gt; {</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>const done = !!logs[`${h.id}-${d}`];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>return (</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;div key={d} className="flex justify-center"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;div className={`w-7 h-7 rounded-lg flex items-center justify-center ${done ? `bg-gradient-to-br ${COLOR_THEMES[h.color].from} ${COLOR_THEMES[h.color].to} text-white` : 'bg-stone-200/30'}`}&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                    </span>{done &amp;&amp; &lt;Icon name="check" size={14} /&gt;}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>})}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>))}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>return (</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div className={`min-h-screen transition-colors duration-500 ${theme.bg}`}&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div className={`max-w-md mx-auto min-h-screen relative flex flex-col ${themeMode === 'day' ? 'bg-white' : 'bg-slate-950'} shadow-2xl`}&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className={`absolute top-0 w-full h-80 blur-[100px] pointer-events-none ${theme.glow}`} /&gt;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">                        </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className="relative z-10 p-6 flex-1 flex flex-col"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>{/* Header */}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="flex justify-between items-center mb-8"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;h1 className={`text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r ${theme.headerGradient}`}&gt;Habit 2026&lt;/h1&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="text-[10px] font-bold opacity-40 tracking-widest uppercase flex items-center gap-1"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;Icon name={themeMode === 'day' ? 'sun' : 'moon'} size={10} /&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>{themeMode === 'day' ? '青山模式' : '海洋模式'}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className="flex gap-2"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;button onClick={() =&gt; setIsSettingsOpen(true)} className={`p-2 rounded-xl ${theme.buttonInactive}`}&gt;&lt;Icon name="settings" size={20}/&gt;&lt;/button&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className={`flex rounded-xl p-1 ${themeMode === 'day' ? 'bg-stone-200/40' : 'bg-slate-800/40'}`}&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;button onClick={()=&gt;setView('daily')} className={`p-2 rounded-lg ${view==='daily'?theme.buttonActive:theme.buttonInactive}`}&gt;&lt;Icon name="layout" size={18}/&gt;&lt;/button&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;button onClick={()=&gt;setView('weekly')} className={`p-2 rounded-lg ${view==='weekly'?theme.buttonActive:theme.buttonInactive}`}&gt;&lt;Icon name="calendar" size={18}/&gt;&lt;/button&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>{/* Date Navigation */}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className={`flex items-center justify-between p-3 mb-6 rounded-2xl border backdrop-blur-md ${theme.navBg} ${theme.cardBorder}`}&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;button onClick={() =&gt; { const d = new Date(currentDate); d.setDate(d.getDate()-(view==='daily'?1:7)); setCurrentDate(d); }} className={theme.textSub}&gt;&lt;Icon name="chevron-left" /&gt;&lt;/button&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className={`font-bold ${theme.textMain}`}&gt;{view === 'daily' ? currentDate.toLocaleDateString('zh-TW', { month: 'long', day: 'numeric', weekday: 'short' }) : '本週概覽'}&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;button onClick={() =&gt; { const d = new Date(currentDate); d.setDate(d.getDate()+(view==='daily'?1:7)); setCurrentDate(d); }} className={theme.textSub}&gt;&lt;Icon name="chevron-right" /&gt;&lt;/button&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>{/* Main Content */}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="flex-1 overflow-y-auto no-scrollbar"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>{view === 'daily' ? (</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>habits.map(h =&gt; &lt;HabitCard key={h.id} habit={h} /&gt;)</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>) : (</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;WeeklyTable /&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>)}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{/* Floating Action Button */}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;button onClick={() =&gt; setIsEditing(true)} className={`absolute bottom-8 right-8 w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center text-white bg-gradient-to-r ${theme.headerGradient} active:scale-90 transition-transform`}&gt;&lt;Icon name="plus" size={28} /&gt;&lt;/button&gt;</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{/* Settings Modal */}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{isSettingsOpen &amp;&amp; (</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm animate-pop"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className={`w-full max-w-xs p-6 rounded-3xl ${theme.cardBg} ${theme.textMain}`}&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="flex justify-between items-center mb-6"&gt;&lt;h2 className="font-black text-xl"&gt;資料管理&lt;/h2&gt;&lt;button onClick={()=&gt;setIsSettingsOpen(false)}&gt;&lt;Icon name="x"/&gt;&lt;/button&gt;&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;button onClick={exportData} className="w-full p-4 mb-3 rounded-2xl border flex justify-between items-center font-bold"&gt;&lt;span&gt;下載備份 (.json)&lt;/span&gt;&lt;Icon name="download"/&gt;&lt;/button&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;label className="w-full p-4 mb-3 rounded-2xl border flex justify-between items-center font-bold cursor-pointer"&gt;&lt;span&gt;匯入備份&lt;/span&gt;&lt;Icon name="upload"/&gt;&lt;input type="file" onChange={importData} className="hidden"/&gt;&lt;/label&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-[10px] opacity-50 leading-relaxed"&gt;提示：資料目前儲存在瀏覽器中。清除快取會導致紀錄消失，建議每週備份一次檔案。&lt;/p&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>)}</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{/* Add Habit Modal */}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{isEditing &amp;&amp; (</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm animate-pop"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className={`w-full max-w-xs p-6 rounded-3xl ${theme.cardBg} ${theme.textMain}`}&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="flex justify-between mb-6"&gt;&lt;h2 className="font-black text-xl"&gt;新習慣&lt;/h2&gt;&lt;button onClick={()=&gt;setIsEditing(false)}&gt;&lt;Icon name="x"/&gt;&lt;/button&gt;&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;form onSubmit={handleSaveHabit} className="space-y-4"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;input name="title" required className="w-full p-3 rounded-xl border bg-transparent" placeholder="習慣名稱" /&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;div className="flex gap-2"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;input name="goalPerWeek" type="number" min="1" max="7" defaultValue="5" className="flex-1 p-3 rounded-xl border bg-transparent" /&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;input name="unit" defaultValue="次" className="flex-1 p-3 rounded-xl border bg-transparent" /&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;button type="submit" className={`w-full p-4 rounded-2xl text-white font-bold bg-gradient-to-r ${theme.headerGradient}`}&gt;儲存&lt;/button&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/form&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>)}</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{/* Celebration */}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{celebration &amp;&amp; (</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="fixed inset-0 pointer-events-none flex items-center justify-center z-50"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className="bg-white/90 px-8 py-4 rounded-full shadow-2xl flex items-center gap-2 animate-bounce border border-white"&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;Icon name="party-popper" className="text-yellow-500" /&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;span className="text-xl font-black text-slate-800"&gt;{celebration}&lt;/span&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>)}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const root = ReactDOM.createRoot(document.getElementById('root'));</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>root.render(&lt;App /&gt;);</span></p>
-<p class="p1"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">script</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;/</span><span class="s1">body</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;/</span><span class="s1">html</span><span class="s3">&gt;</span></p>
+<body class="bg-slate-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useMemo } = React;
+
+        // --- 核心資料 ---
+        const DEFAULT_HABITS = [
+            { id: 'water', title: 'Waterllama 達標', icon: 'droplets', color: 'cyan', goalPerWeek: 5, unit: '天' },
+            { id: 'steps', title: '日走 7000 步', icon: 'footprints', color: 'orange', goalPerWeek: 7, unit: '步' },
+            { id: 'juc', title: '啾C 課程', icon: 'activity', color: 'pink', goalPerWeek: 3, unit: '次' },
+            { id: 'stretch', title: '晚間拉筋 15min', icon: 'moon', color: 'indigo', goalPerWeek: 7, unit: '晚' },
+            { id: 'weight', title: '重訓', icon: 'dumbbell', color: 'emerald', goalPerWeek: 4, unit: '次' },
+            { id: 'luna', title: 'Luna 訓練', icon: 'dog', color: 'violet', goalPerWeek: 5, unit: '次' },
+        ];
+
+        const COLOR_THEMES = {
+            cyan: { from: 'from-cyan-400', to: 'to-blue-500', text: 'text-cyan-500', bg: 'bg-cyan-500' },
+            orange: { from: 'from-orange-400', to: 'to-red-500', text: 'text-orange-500', bg: 'bg-orange-500' },
+            pink: { from: 'from-pink-400', to: 'to-rose-500', text: 'text-pink-500', bg: 'bg-pink-500' },
+            indigo: { from: 'from-indigo-400', to: 'to-purple-500', text: 'text-indigo-500', bg: 'bg-indigo-500' },
+            emerald: { from: 'from-emerald-400', to: 'to-green-500', text: 'text-emerald-500', bg: 'bg-emerald-500' },
+            yellow: { from: 'from-yellow-400', to: 'to-amber-500', text: 'text-yellow-500', bg: 'bg-yellow-500' },
+            violet: { from: 'from-violet-400', to: 'to-fuchsia-500', text: 'text-violet-500', bg: 'bg-violet-500' },
+        };
+
+        // --- 組件: Lucide 圖示 ---
+        const LucideIcon = ({ name, size = 20, className = "" }) => {
+            const iconRef = useRef(null);
+            useEffect(() => {
+                if (iconRef.current) {
+                    // 清除舊內容
+                    iconRef.current.innerHTML = '';
+                    // 建立新圖示
+                    const iconElement = lucide.createIcons({
+                        icons: { [name]: true },
+                        attrs: { 
+                            strokeWidth: 2, 
+                            width: size, 
+                            height: size,
+                            class: className 
+                        }
+                    });
+                }
+            }, [name, size, className]);
+            return <span ref={iconRef} className="inline-flex items-center justify-center" />;
+        };
+
+        // --- 輔助函式 ---
+        const getDateString = (date) => {
+            const d = new Date(date);
+            const offset = d.getTimezoneOffset();
+            const localDate = new Date(d.getTime() - (offset * 60 * 1000));
+            return localDate.toISOString().split('T')[0];
+        };
+
+        const getWeekStart = (date) => {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - (day === 0 ? 6 : day - 1);
+            const start = new Date(d.setDate(diff));
+            start.setHours(0,0,0,0);
+            return start;
+        };
+
+        const getDaysInWeek = (startDate) => {
+            const days = [];
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(startDate);
+                d.setDate(d.getDate() + i);
+                days.push(getDateString(d));
+            }
+            return days;
+        };
+
+        // --- 主程式 ---
+        function App() {
+            const [logs, setLogs] = useState({});
+            const [habits, setHabits] = useState(DEFAULT_HABITS);
+            const [currentDate, setCurrentDate] = useState(new Date());
+            const [view, setView] = useState('daily');
+            const [themeMode, setThemeMode] = useState('night');
+            const [isEditing, setIsEditing] = useState(false);
+            const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+            const [editingHabit, setEditingHabit] = useState(null);
+            const [celebration, setCelebration] = useState(null);
+
+            // 初始化與讀取
+            useEffect(() => {
+                const savedLogs = localStorage.getItem('habit2026_logs');
+                const savedHabits = localStorage.getItem('habit2026_list');
+                if (savedLogs) setLogs(JSON.parse(savedLogs));
+                if (savedHabits) setHabits(JSON.parse(savedHabits));
+                
+                const hour = new Date().getHours();
+                setThemeMode(hour >= 6 && hour < 18 ? 'day' : 'night');
+            }, []);
+
+            // 自動儲存
+            useEffect(() => {
+                localStorage.setItem('habit2026_logs', JSON.stringify(logs));
+                localStorage.setItem('habit2026_list', JSON.stringify(habits));
+            }, [logs, habits]);
+
+            const currentTheme = themeMode === 'day' ? {
+                bg: 'bg-stone-100',
+                textMain: 'text-stone-800',
+                textSub: 'text-stone-500',
+                cardBg: 'bg-white',
+                cardBorder: 'border-stone-200',
+                headerGradient: 'from-emerald-600 to-teal-600',
+                buttonActive: 'bg-stone-200 text-stone-800',
+                buttonInactive: 'text-stone-400',
+                navBg: 'bg-white/60',
+                glow: 'bg-emerald-400/20'
+            } : {
+                bg: 'bg-slate-950',
+                textMain: 'text-slate-200',
+                textSub: 'text-slate-400',
+                cardBg: 'bg-slate-800',
+                cardBorder: 'border-slate-700',
+                headerGradient: 'from-blue-400 to-purple-400',
+                buttonActive: 'bg-slate-600 text-white',
+                buttonInactive: 'text-slate-400',
+                navBg: 'bg-slate-800/60',
+                glow: 'bg-blue-600/10'
+            };
+
+            const toggleHabit = (id, dateStr) => {
+                const key = `${id}-${dateStr}`;
+                setLogs(prev => {
+                    const next = { ...prev };
+                    if (next[key]) {
+                        delete next[key];
+                    } else {
+                        next[key] = true;
+                        setCelebration("做得好！");
+                        setTimeout(() => setCelebration(null), 1500);
+                    }
+                    return next;
+                });
+            };
+
+            const calculateProgress = (habitId) => {
+                const start = getWeekStart(currentDate);
+                const weekDays = getDaysInWeek(start);
+                return weekDays.filter(d => logs[`${habitId}-${d}`]).length;
+            };
+
+            const exportData = () => {
+                const data = { logs, habits, exportDate: new Date().toISOString() };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `habit-tracker-backup-${getDateString(new Date())}.json`;
+                a.click();
+            };
+
+            const handleImport = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (evt) => {
+                    try {
+                        const data = JSON.parse(evt.target.result);
+                        if (data.logs) setLogs(data.logs);
+                        if (data.habits) setHabits(data.habits);
+                        alert('匯入成功！');
+                        setIsSettingsOpen(false);
+                    } catch (err) {
+                        alert('格式錯誤，無法匯入');
+                    }
+                };
+                reader.readAsText(file);
+            };
+
+            const handleSaveHabit = (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const newHabit = {
+                    id: editingHabit?.id || `h-${Date.now()}`,
+                    title: formData.get('title'),
+                    goalPerWeek: parseInt(formData.get('goalPerWeek')),
+                    unit: formData.get('unit'),
+                    icon: editingHabit?.icon || 'sparkles',
+                    color: editingHabit?.color || 'cyan',
+                };
+                if (editingHabit) {
+                    setHabits(habits.map(h => h.id === newHabit.id ? newHabit : h));
+                } else {
+                    setHabits([...habits, newHabit]);
+                }
+                setIsEditing(false);
+                setEditingHabit(null);
+            };
+
+            return (
+                <div className={`min-h-screen transition-colors duration-500 ${currentTheme.bg}`}>
+                    <div className={`max-w-md mx-auto min-h-screen relative flex flex-col ${themeMode === 'day' ? 'bg-white' : 'bg-slate-950'} shadow-2xl`}>
+                        {/* 背景裝飾 */}
+                        <div className={`absolute top-0 w-full h-80 blur-[100px] pointer-events-none ${currentTheme.glow}`} />
+                        
+                        {/* 主內容區 */}
+                        <div className="relative z-10 p-6 flex-1 flex flex-col overflow-hidden">
+                            {/* Header */}
+                            <div className="flex justify-between items-center mb-8">
+                                <div onClick={() => setThemeMode(themeMode === 'day' ? 'night' : 'day')} className="cursor-pointer">
+                                    <h1 className={`text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r ${currentTheme.headerGradient}`}>Habit 2026</h1>
+                                    <div className="text-[10px] font-bold opacity-40 tracking-widest uppercase flex items-center gap-1">
+                                        <LucideIcon name={themeMode === 'day' ? 'sun' : 'moon'} size={10} />
+                                        {themeMode === 'day' ? '青山模式' : '海洋模式'}
+                                    </div>
+                                </div>
+                                <div className="flex gap-2">
+                                    <button onClick={() => setIsSettingsOpen(true)} className={`p-2 rounded-xl ${currentTheme.buttonInactive} hover:bg-white/10`}><LucideIcon name="settings" /></button>
+                                    <div className={`flex rounded-xl p-1 ${themeMode === 'day' ? 'bg-stone-200/40' : 'bg-slate-800/40'} backdrop-blur-sm`}>
+                                        <button onClick={()=>setView('daily')} className={`p-2 rounded-lg transition-all ${view==='daily'?currentTheme.buttonActive:currentTheme.buttonInactive}`}><LucideIcon name="layout" size={18}/></button>
+                                        <button onClick={()=>setView('weekly')} className={`p-2 rounded-lg transition-all ${view==='weekly'?currentTheme.buttonActive:currentTheme.buttonInactive}`}><LucideIcon name="calendar" size={18}/></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* 日期導覽 */}
+                            <div className={`flex items-center justify-between p-3 mb-6 rounded-2xl border backdrop-blur-md ${currentTheme.navBg} ${currentTheme.cardBorder}`}>
+                                <button onClick={() => { const d = new Date(currentDate); d.setDate(d.getDate()-(view==='daily'?1:7)); setCurrentDate(d); }} className={currentTheme.textSub}><LucideIcon name="chevron-left" /></button>
+                                <div className={`font-bold ${currentTheme.textMain} text-sm`}>
+                                    {view === 'daily' 
+                                        ? currentDate.toLocaleDateString('zh-TW', { month: 'long', day: 'numeric', weekday: 'short' }) 
+                                        : `${(getWeekStart(currentDate).getMonth()+1)}月${getWeekStart(currentDate).getDate()}日當週概覽`}
+                                </div>
+                                <button onClick={() => { const d = new Date(currentDate); d.setDate(d.getDate()+(view==='daily'?1:7)); setCurrentDate(d); }} className={currentTheme.textSub}><LucideIcon name="chevron-right" /></button>
+                            </div>
+
+                            {/* 列表內容 */}
+                            <div className="flex-1 overflow-y-auto no-scrollbar pb-20">
+                                {view === 'daily' ? (
+                                    habits.map(h => {
+                                        const dateStr = getDateString(currentDate);
+                                        const isDone = !!logs[`${h.id}-${dateStr}`];
+                                        const color = COLOR_THEMES[h.color];
+                                        const prog = calculateProgress(h.id);
+                                        return (
+                                            <div 
+                                                key={h.id} 
+                                                onClick={() => toggleHabit(h.id, dateStr)}
+                                                className={`p-4 rounded-2xl border transition-all cursor-pointer relative overflow-hidden mb-4 ${isDone ? `bg-gradient-to-r ${color.from} ${color.to} border-transparent text-white shadow-lg scale-[1.02]` : `${currentTheme.cardBg} ${currentTheme.cardBorder} ${currentTheme.textMain}`}`}
+                                            >
+                                                <div className="flex justify-between items-center relative z-10">
+                                                    <div className="flex items-center gap-4">
+                                                        <div className={`p-3 rounded-xl ${isDone ? 'bg-white/20' : 'bg-stone-100 dark:bg-slate-700/50'}`}>
+                                                            <LucideIcon name={h.icon} size={24} />
+                                                        </div>
+                                                        <div>
+                                                            <div className="font-bold text-lg leading-tight">{h.title}</div>
+                                                            <div className={`text-xs ${isDone ? 'text-white/80' : currentTheme.textSub}`}>本週: {prog}/{h.goalPerWeek} {h.unit}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all ${isDone ? 'bg-white border-white' : 'border-current opacity-20'}`}>
+                                                        {isDone && <LucideIcon name="check" size={18} className={color.text} />}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                ) : (
+                                    <div className="overflow-x-auto">
+                                        <div className="min-w-[400px]">
+                                            <div className="grid grid-cols-[80px_repeat(7,1fr)] gap-2 mb-4 text-center">
+                                                <div className={`text-left text-xs font-bold ${currentTheme.textSub}`}>習慣</div>
+                                                {['一','二','三','四','五','六','日'].map((l, i) => (
+                                                    <div key={i} className={`flex flex-col items-center`}>
+                                                        <span className={`text-[10px] opacity-50`}>{getDaysInWeek(getWeekStart(currentDate))[i].split('-')[2]}</span>
+                                                        <span className={`text-sm font-bold ${currentTheme.textMain}`}>{l}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            {habits.map(h => (
+                                                <div key={h.id} className="grid grid-cols-[80px_repeat(7,1fr)] gap-2 items-center mb-4">
+                                                    <div className={`text-xs font-bold truncate ${currentTheme.textMain}`}>{h.title}</div>
+                                                    {getDaysInWeek(getWeekStart(currentDate)).map(d => {
+                                                        const done = !!logs[`${h.id}-${d}`];
+                                                        return (
+                                                            <div key={d} className="flex justify-center" onClick={() => toggleHabit(h.id, d)}>
+                                                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${done ? `bg-gradient-to-br ${COLOR_THEMES[h.color].from} ${COLOR_THEMES[h.color].to} text-white shadow-sm` : 'bg-stone-200/30'}`}>
+                                                                    {done && <LucideIcon name="check" size={16} />}
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Floating Button */}
+                        <button onClick={() => setIsEditing(true)} className={`absolute bottom-8 right-8 w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center text-white bg-gradient-to-r ${currentTheme.headerGradient} active:scale-90 transition-transform z-40 border border-white/20`}><LucideIcon name="plus" size={28} /></button>
+
+                        {/* 設定 Modal */}
+                        {isSettingsOpen && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm animate-pop">
+                                <div className={`w-full max-w-xs p-6 rounded-3xl ${currentTheme.cardBg} ${currentTheme.textMain} shadow-2xl`}>
+                                    <div className="flex justify-between items-center mb-6"><h2 className="font-black text-xl">資料管理</h2><button onClick={()=>setIsSettingsOpen(false)}><LucideIcon name="x"/></button></div>
+                                    <div className="space-y-3">
+                                        <button onClick={exportData} className="w-full p-4 rounded-2xl border border-current opacity-80 flex justify-between items-center font-bold"><span>匯出備份 (.json)</span><LucideIcon name="download"/></button>
+                                        <label className="w-full p-4 rounded-2xl border border-current opacity-80 flex justify-between items-center font-bold cursor-pointer"><span>匯入備份</span><LucideIcon name="upload"/><input type="file" onChange={handleImport} className="hidden"/></label>
+                                    </div>
+                                    <p className="text-[10px] opacity-50 mt-6 leading-relaxed">提示：目前資料儲存在您的瀏覽器中。清除快取會導致紀錄消失，請定期備份檔案。</p>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* 新增/編輯 Modal */}
+                        {isEditing && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm animate-pop">
+                                <div className={`w-full max-w-xs p-6 rounded-3xl ${currentTheme.cardBg} ${currentTheme.textMain} shadow-2xl`}>
+                                    <div className="flex justify-between items-center mb-6"><h2 className="font-black text-xl">新習慣</h2><button onClick={()=>setIsEditing(false)}><LucideIcon name="x"/></button></div>
+                                    <form onSubmit={handleSaveHabit} className="space-y-4">
+                                        <input name="title" required className={`w-full p-4 rounded-xl border bg-transparent ${currentTheme.cardBorder}`} placeholder="習慣名稱" />
+                                        <div className="flex gap-2">
+                                            <input name="goalPerWeek" type="number" min="1" max="7" defaultValue="5" className={`flex-1 p-4 rounded-xl border bg-transparent ${currentTheme.cardBorder}`} />
+                                            <input name="unit" defaultValue="次" className={`flex-1 p-4 rounded-xl border bg-transparent ${currentTheme.cardBorder}`} />
+                                        </div>
+                                        <button type="submit" className={`w-full p-4 rounded-2xl text-white font-bold bg-gradient-to-r ${currentTheme.headerGradient} shadow-lg`}>儲存</button>
+                                    </form>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* 慶祝特效 */}
+                        {celebration && (
+                            <div className="fixed inset-0 pointer-events-none flex items-center justify-center z-[100]">
+                                <div className="bg-white/95 px-8 py-4 rounded-full shadow-2xl flex items-center gap-2 animate-bounce border border-emerald-500/20">
+                                    <LucideIcon name="party-popper" className="text-yellow-500" />
+                                    <span className="text-xl font-black text-slate-800">{celebration}</span>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
