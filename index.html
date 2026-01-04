@@ -2,104 +2,111 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habit Tracker 2026</title>
-    <!-- 僅引入核心 React，去除 Babel 以提升載入速度與穩定性 -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <!-- 引入 React, Babel 與 Tailwind CSS -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Lucide 圖示 (UMD 版本) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'M PLUS Rounded 1c', sans-serif; -webkit-tap-highlight-color: transparent; background-color: #020617; color: white; margin: 0; }
+        body { font-family: 'M PLUS Rounded 1c', sans-serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        @keyframes pop { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
-        .animate-pop { animation: pop 0.2s ease-out forwards; }
-        #loading-screen { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: #020617; z-index: 99; transition: opacity 0.3s; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* 簡單的動畫 */
+        @keyframes fade-in { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .animate-pop { animation: fade-in 0.3s ease-out forwards; }
     </style>
 </head>
-<body>
-    <div id="loading-screen">
-        <div class="flex flex-col items-center gap-4">
-            <div class="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-            <p class="text-sm font-bold opacity-50">啟動中...</p>
-        </div>
-    </div>
+<body class="bg-slate-900">
     <div id="root"></div>
 
-    <script>
-        // 使用純 JS (React.createElement) 替代 JSX，確保在所有環境都能瞬間載入
-        const e = React.createElement;
-        const { useState, useEffect, useMemo } = React;
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
 
-        const ICONS_PATH = {
-            droplets: "M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z",
-            footprints: "M4 16v-2.3a2 2 0 1 1 2-2 2 2 0 0 1-2 2zM13 16v-2.3a2 2 0 1 1 2-2 2 2 0 0 1-2 2zM8 20v-2.3a2 2 0 1 1 2-2 2 2 0 0 1-2 2zM17 20v-2.3a2 2 0 1 1 2-2 2 2 0 0 1-2 2zM10 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM15 5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z",
-            activity: "M22 12h-4l-3 9L9 3l-3 9H2",
-            moon: "M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z",
-            dumbbell: "m6.5 6.5 11 11M3 21l3-3M18 6l3-3M3 13.5h3v-3H3zM18 13.5h3v-3h-3zM8.5 2h3v3h-3zM8.5 19h3v3h-3z",
-            dog: "M10 5.172C10 3.782 8.423 2.679 6.5 3c-1.923.321-3.5 1.424-3.5 2.814 0 1.258 1.303 2.304 3 2.704v5.3c0 2.21 1.79 4 4 4h4a4 4 0 0 0 4-4V8.518c1.697-.4 3-1.446 3-2.704 0-1.39-1.577-2.493-3.5-2.814-1.923-.321-3.5.782-3.5 2.172v.328h-4v-.328zM12 14v.01M9 11v.01M15 11v.01",
-            trophy: "M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-2.34M12 4v10.66M8 4h8",
-            plus: "M12 5v14M5 12h14",
-            check: "M20 6 9 17l-5-5",
-            settings: "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z",
-            layout: "M3 9h18M9 21V9",
-            calendar: "M16 2v4M8 2v4M3 10h18",
-            x: "M18 6 6 18M6 6l12 12",
-            chevronLeft: "m15 18-6-6 6-6",
-            chevronRight: "m9 18 6-6-6-6",
-            sun: "M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41",
-            partyPopper: "M5.8 11.3 2 22l10.7-3.8M4 3h.01M9 2h.01M15 4h.01M12 9h.01M16 14h.01M10 18h.01",
-            trash: "M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",
-            edit: "M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z",
-            sparkles: "m12 3 1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3z"
-        };
-
-        const SVGIcon = ({ name, className = "w-5 h-5" }) => (
-            e('svg', {
-                xmlns: "http://www.w3.org/2000/svg",
-                viewBox: "0 0 24 24",
-                fill: "none",
-                stroke: "currentColor",
-                strokeWidth: "2",
-                strokeLinecap: "round",
-                strokeLinejoin: "round",
-                className: className,
-                dangerouslySetInnerHTML: { __html: name === 'calendar' || name === 'layout' ? `<rect width="18" height="18" x="3" y="3" rx="2"></rect>${ICONS_PATH[name]}` : `<path d="${ICONS_PATH[name]}"></path>` }
-            })
-        );
+        // 預設習慣
+        const DEFAULT_HABITS = [
+            { id: 'water', title: 'Waterllama 達標', icon: 'droplets', color: 'cyan', goalPerWeek: 5, unit: '天' },
+            { id: 'steps', title: '日走 7000 步', icon: 'footprints', color: 'orange', goalPerWeek: 7, unit: '步' },
+            { id: 'juc', title: '啾C 課程', icon: 'activity', color: 'pink', goalPerWeek: 3, unit: '次' },
+            { id: 'stretch', title: '晚間拉筋 15min', icon: 'moon', color: 'indigo', goalPerWeek: 7, unit: '晚' },
+            { id: 'weight', title: '重訓', icon: 'dumbbell', color: 'emerald', goalPerWeek: 4, unit: '次' },
+            { id: 'luna', title: 'Luna 訓練', icon: 'dog', color: 'violet', goalPerWeek: 5, unit: '次' },
+        ];
 
         const COLOR_THEMES = {
-            cyan: { from: 'from-cyan-400', to: 'to-blue-500', text: 'text-cyan-500' },
-            orange: { from: 'from-orange-400', to: 'to-red-500', text: 'text-orange-500' },
-            pink: { from: 'from-pink-400', to: 'to-rose-500', text: 'text-pink-500' },
-            indigo: { from: 'from-indigo-400', to: 'to-purple-500', text: 'text-indigo-500' },
-            emerald: { from: 'from-emerald-400', to: 'to-green-500', text: 'text-emerald-500' },
-            violet: { from: 'from-violet-400', to: 'to-fuchsia-500', text: 'text-violet-500' },
+            cyan: { from: 'from-cyan-400', to: 'to-blue-500', text: 'text-cyan-500', bg: 'bg-cyan-500' },
+            orange: { from: 'from-orange-400', to: 'to-red-500', text: 'text-orange-500', bg: 'bg-orange-500' },
+            pink: { from: 'from-pink-400', to: 'to-rose-500', text: 'text-pink-500', bg: 'bg-pink-500' },
+            indigo: { from: 'from-indigo-400', to: 'to-purple-500', text: 'text-indigo-500', bg: 'bg-indigo-500' },
+            emerald: { from: 'from-emerald-400', to: 'to-green-500', text: 'text-emerald-500', bg: 'bg-emerald-500' },
+            yellow: { from: 'from-yellow-400', to: 'to-amber-500', text: 'text-yellow-500', bg: 'bg-yellow-500' },
+            violet: { from: 'from-violet-400', to: 'to-fuchsia-500', text: 'text-violet-500', bg: 'bg-violet-500' },
         };
 
-        const App = () => {
-            const [logs, setLogs] = useState(() => JSON.parse(localStorage.getItem('habit2026_logs') || '{}'));
-            const [habits, setHabits] = useState(() => JSON.parse(localStorage.getItem('habit2026_list') || '[]'));
+        // Lucide 圖示渲染組件
+        const Icon = ({ name, size = 20, className = "" }) => {
+            const ref = useRef(null);
+            useEffect(() => {
+                if (ref.current) {
+                    ref.current.innerHTML = lucide.createIcons({
+                        icons: { [name]: true },
+                        attrs: { strokeWidth: 2, width: size, height: size }
+                    })[name];
+                }
+            }, [name, size]);
+            return <i ref={ref} className={`inline-block ${className}`} />;
+        };
+
+        // 輔助函式
+        const getDateString = (date) => date.toISOString().split('T')[0];
+        const getWeekStart = (date) => {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - (day === 0 ? 6 : day - 1);
+            d.setDate(diff);
+            d.setHours(0,0,0,0);
+            return d;
+        };
+        const getDaysInWeek = (startDate) => {
+            const days = [];
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(startDate);
+                d.setDate(d.getDate() + i);
+                days.push(getDateString(d));
+            }
+            return days;
+        };
+
+        const calculateWeeklyProgress = (habitId, date, logs) => {
+            const start = getWeekStart(date);
+            const weekDays = getDaysInWeek(start);
+            let count = 0;
+            weekDays.forEach(d => { if (logs[`${habitId}-${d}`]) count++; });
+            return count;
+        };
+
+        function App() {
+            const [logs, setLogs] = useState({});
+            const [habits, setHabits] = useState(DEFAULT_HABITS);
             const [currentDate, setCurrentDate] = useState(new Date());
             const [view, setView] = useState('daily');
             const [themeMode, setThemeMode] = useState('night');
-            const [modal, setModal] = useState(null);
+            const [isEditing, setIsEditing] = useState(false);
+            const [isSettingsOpen, setIsSettingsOpen] = useState(false);
             const [editingHabit, setEditingHabit] = useState(null);
             const [celebration, setCelebration] = useState(null);
 
-            // 核心功能：跑起來之後隱藏載入畫面
             useEffect(() => {
-                const loader = document.getElementById('loading-screen');
-                if (loader) {
-                    loader.style.opacity = '0';
-                    setTimeout(() => loader.style.display = 'none', 300);
-                }
-                
-                if (!habits.length) setHabits([
-                    { id: 'water', title: 'Waterllama 達標', icon: 'droplets', color: 'cyan', goalPerWeek: 5, unit: '天' },
-                    { id: 'steps', title: '日走 7000 步', icon: 'footprints', color: 'orange', goalPerWeek: 7, unit: '步' },
-                    { id: 'stretch', title: '晚間拉筋 15min', icon: 'moon', color: 'indigo', goalPerWeek: 7, unit: '晚' }
-                ]);
+                const savedLogs = localStorage.getItem('habit2026_logs');
+                const savedHabits = localStorage.getItem('habit2026_list');
+                if (savedLogs) setLogs(JSON.parse(savedLogs));
+                if (savedHabits) setHabits(JSON.parse(savedHabits));
+                const hour = new Date().getHours();
+                setThemeMode(hour >= 6 && hour < 18 ? 'day' : 'night');
             }, []);
 
             useEffect(() => {
@@ -107,160 +114,221 @@
                 localStorage.setItem('habit2026_list', JSON.stringify(habits));
             }, [logs, habits]);
 
-            const dateStr = useMemo(() => {
-                const d = currentDate;
-                return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-            }, [currentDate]);
+            const theme = {
+                day: { bg: 'bg-stone-100', textMain: 'text-stone-800', textSub: 'text-stone-500', cardBg: 'bg-white', cardBorder: 'border-stone-200', headerGradient: 'from-emerald-600 to-teal-600', buttonActive: 'bg-stone-200 text-stone-800', buttonInactive: 'text-stone-400', navBg: 'bg-white/50', glow: 'bg-emerald-400/20' },
+                night: { bg: 'bg-slate-950', textMain: 'text-slate-200', textSub: 'text-slate-400', cardBg: 'bg-slate-800', cardBorder: 'border-slate-700', headerGradient: 'from-blue-400 to-purple-400', buttonActive: 'bg-slate-600 text-white', buttonInactive: 'text-slate-400', navBg: 'bg-slate-800/50', glow: 'bg-blue-600/10' }
+            }[themeMode];
 
-            const weekStart = useMemo(() => {
-                const d = new Date(currentDate);
-                d.setDate(d.getDate() - (d.getDay() === 0 ? 6 : d.getDay() - 1));
-                d.setHours(0,0,0,0);
-                return d;
-            }, [currentDate]);
-
-            const toggle = (id, dStr) => {
+            const toggleHabit = (id, dateStr) => {
+                const key = `${id}-${dateStr}`;
                 setLogs(prev => {
                     const next = { ...prev };
-                    if (next[`${id}-${dStr}`]) delete next[`${id}-${dStr}`];
+                    if (next[key]) delete next[key];
                     else {
-                        next[`${id}-${dStr}`] = true;
-                        setCelebration("太讚了！");
-                        setTimeout(() => setCelebration(null), 1200);
+                        next[key] = true;
+                        setCelebration("做得好！");
+                        setTimeout(() => setCelebration(null), 1500);
                     }
                     return next;
                 });
             };
 
-            const getWeekly = (id) => {
-                let count = 0;
-                for (let i = 0; i < 7; i++) {
-                    const d = new Date(weekStart);
-                    d.setDate(d.getDate() + i);
-                    const ds = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-                    if (logs[`${id}-${ds}`]) count++;
-                }
-                return count;
+            const exportData = () => {
+                const data = { logs, habits };
+                const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `habit-backup-${getDateString(new Date())}.json`;
+                a.click();
             };
 
-            const theme = themeMode === 'day' ? { bg: 'bg-stone-100', text: 'text-stone-800', sub: 'text-stone-500', card: 'bg-white', border: 'border-stone-200', grad: 'from-emerald-600 to-teal-600' } 
-                                              : { bg: 'bg-slate-950', text: 'text-slate-100', sub: 'text-slate-400', card: 'bg-slate-800', border: 'border-slate-700', grad: 'from-blue-400 to-purple-400' };
+            const importData = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        if (data.logs) setLogs(data.logs);
+                        if (data.habits) setHabits(data.habits);
+                        alert('匯入成功！');
+                    } catch (err) { alert('匯入失敗'); }
+                };
+                reader.readAsText(file);
+            };
+
+            const handleSaveHabit = (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const newHabit = {
+                    id: editingHabit?.id || `h-${Date.now()}`,
+                    title: formData.get('title'),
+                    goalPerWeek: parseInt(formData.get('goalPerWeek')),
+                    unit: formData.get('unit'),
+                    icon: editingHabit?.icon || 'sparkles',
+                    color: editingHabit?.color || 'cyan',
+                };
+                if (editingHabit) setHabits(habits.map(h => h.id === newHabit.id ? newHabit : h));
+                else setHabits([...habits, newHabit]);
+                setIsEditing(false);
+                setEditingHabit(null);
+            };
+
+            // 滑動卡片組件 (整合版)
+            const HabitCard = ({ habit }) => {
+                const dateStr = getDateString(currentDate);
+                const isDone = !!logs[`${habit.id}-${dateStr}`];
+                const color = COLOR_THEMES[habit.color];
+                const progress = calculateWeeklyProgress(habit.id, currentDate, logs);
+                
+                return (
+                    <div 
+                        onClick={() => toggleHabit(habit.id, dateStr)}
+                        className={`p-4 rounded-2xl border transition-all cursor-pointer relative overflow-hidden mb-4 ${isDone ? `bg-gradient-to-r ${color.from} ${color.to} border-transparent text-white shadow-lg scale-[1.02]` : `${theme.cardBg} ${theme.cardBorder} ${theme.textMain}`}`}
+                    >
+                        <div className="flex justify-between items-center relative z-10">
+                            <div className="flex items-center gap-4">
+                                <div className={`p-3 rounded-xl ${isDone ? 'bg-white/20' : 'bg-stone-100 dark:bg-slate-700'}`}>
+                                    <Icon name={habit.icon} size={24} />
+                                </div>
+                                <div>
+                                    <div className="font-bold text-lg">{habit.title}</div>
+                                    <div className={`text-xs ${isDone ? 'text-white/80' : theme.textSub}`}>本週目標: {progress}/{habit.goalPerWeek} {habit.unit}</div>
+                                </div>
+                            </div>
+                            <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all ${isDone ? 'bg-white border-white' : 'border-current opacity-20'}`}>
+                                {isDone && <Icon name="check" size={18} className={color.text} />}
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            const WeeklyTable = () => {
+                const start = getWeekStart(currentDate);
+                const weekDays = getDaysInWeek(start);
+                const labels = ['一', '二', '三', '四', '五', '六', '日'];
+                return (
+                    <div className="overflow-x-auto pb-10">
+                        <div className="min-w-[400px]">
+                            <div className="grid grid-cols-[80px_repeat(7,1fr)] gap-2 mb-4 text-center">
+                                <div className={`text-left text-xs font-bold ${theme.textSub}`}>習慣</div>
+                                {labels.map((l, i) => (
+                                    <div key={i} className={`flex flex-col items-center`}>
+                                        <span className={`text-[10px] opacity-50`}>{weekDays[i].split('-')[2]}</span>
+                                        <span className={`text-sm font-bold ${theme.textMain}`}>{l}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            {habits.map(h => (
+                                <div key={h.id} className="grid grid-cols-[80px_repeat(7,1fr)] gap-2 items-center mb-3">
+                                    <div className={`text-xs font-bold truncate ${theme.textMain}`}>{h.title}</div>
+                                    {weekDays.map(d => {
+                                        const done = !!logs[`${h.id}-${d}`];
+                                        return (
+                                            <div key={d} className="flex justify-center">
+                                                <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${done ? `bg-gradient-to-br ${COLOR_THEMES[h.color].from} ${COLOR_THEMES[h.color].to} text-white` : 'bg-stone-200/30'}`}>
+                                                    {done && <Icon name="check" size={14} />}
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                );
+            };
 
             return (
-                e('div', { className: `min-h-screen ${theme.bg} ${theme.text} flex justify-center selection:bg-blue-500/30` },
-                    e('div', { className: "w-full max-w-md min-h-screen flex flex-col relative overflow-hidden bg-inherit shadow-2xl" },
-                        e('div', { className: `absolute top-0 w-full h-64 blur-[100px] opacity-20 pointer-events-none bg-gradient-to-b ${theme.grad}` }),
+                <div className={`min-h-screen transition-colors duration-500 ${theme.bg}`}>
+                    <div className={`max-w-md mx-auto min-h-screen relative flex flex-col ${themeMode === 'day' ? 'bg-white' : 'bg-slate-950'} shadow-2xl`}>
+                        <div className={`absolute top-0 w-full h-80 blur-[100px] pointer-events-none ${theme.glow}`} />
                         
-                        e('header', { className: "p-6 pb-0 z-10" },
-                            e('div', { className: "flex justify-between items-center mb-6" },
-                                e('div', { onClick: () => setThemeMode(themeMode === 'day' ? 'night' : 'day'), className: "cursor-pointer" },
-                                    e('h1', { className: `text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r ${theme.grad}` }, "Habit 2026"),
-                                    e('div', { className: "text-[10px] font-bold opacity-40 uppercase tracking-widest flex items-center gap-1" },
-                                        e(SVGIcon, { name: themeMode === 'day' ? 'sun' : 'moon', className: "w-3 h-3" }),
-                                        themeMode === 'day' ? '青山' : '海洋'
-                                    )
-                                ),
-                                e('div', { className: "flex gap-2" },
-                                    e('button', { onClick: () => setModal('settings'), className: "p-2 opacity-50" }, e(SVGIcon, { name: "settings" })),
-                                    e('div', { className: "flex bg-white/10 p-1 rounded-xl backdrop-blur-sm" },
-                                        e('button', { onClick: () => setView('daily'), className: `p-2 rounded-lg ${view === 'daily' ? 'bg-white/20 shadow-sm' : 'opacity-40'}` }, e(SVGIcon, { name: "layout" })),
-                                        e('button', { onClick: () => setView('weekly'), className: `p-2 rounded-lg ${view === 'weekly' ? 'bg-white/20 shadow-sm' : 'opacity-40'}` }, e(SVGIcon, { name: "calendar" }))
-                                    )
-                                )
-                            ),
-                            e('div', { className: `flex items-center justify-between p-3 rounded-2xl border ${theme.border} bg-white/5 backdrop-blur-md` },
-                                e('button', { onClick: () => { const d = new Date(currentDate); d.setDate(d.getDate() - (view === 'daily' ? 1 : 7)); setCurrentDate(d); } }, e(SVGIcon, { name: "chevronLeft", className: "opacity-50" })),
-                                e('span', { className: "font-bold text-sm" }, view === 'daily' ? currentDate.toLocaleDateString('zh-TW', { month: 'long', day: 'numeric', weekday: 'short' }) : `${weekStart.getMonth()+1}/${weekStart.getDate()} 當週`),
-                                e('button', { onClick: () => { const d = new Date(currentDate); d.setDate(d.getDate() + (view === 'daily' ? 1 : 7)); setCurrentDate(d); } }, e(SVGIcon, { name: "chevronRight", className: "opacity-50" }))
-                            )
-                        ),
+                        <div className="relative z-10 p-6 flex-1 flex flex-col">
+                            {/* Header */}
+                            <div className="flex justify-between items-center mb-8">
+                                <div>
+                                    <h1 className={`text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r ${theme.headerGradient}`}>Habit 2026</h1>
+                                    <div className="text-[10px] font-bold opacity-40 tracking-widest uppercase flex items-center gap-1">
+                                        <Icon name={themeMode === 'day' ? 'sun' : 'moon'} size={10} />
+                                        {themeMode === 'day' ? '青山模式' : '海洋模式'}
+                                    </div>
+                                </div>
+                                <div className="flex gap-2">
+                                    <button onClick={() => setIsSettingsOpen(true)} className={`p-2 rounded-xl ${theme.buttonInactive}`}><Icon name="settings" size={20}/></button>
+                                    <div className={`flex rounded-xl p-1 ${themeMode === 'day' ? 'bg-stone-200/40' : 'bg-slate-800/40'}`}>
+                                        <button onClick={()=>setView('daily')} className={`p-2 rounded-lg ${view==='daily'?theme.buttonActive:theme.buttonInactive}`}><Icon name="layout" size={18}/></button>
+                                        <button onClick={()=>setView('weekly')} className={`p-2 rounded-lg ${view==='weekly'?theme.buttonActive:theme.buttonInactive}`}><Icon name="calendar" size={18}/></button>
+                                    </div>
+                                </div>
+                            </div>
 
-                        e('main', { className: "flex-1 p-6 overflow-y-auto no-scrollbar" },
-                            view === 'daily' ? habits.map(h => {
-                                const done = !!logs[`${h.id}-${dateStr}`];
-                                const c = COLOR_THEMES[h.color] || COLOR_THEMES.cyan;
-                                return e('div', { key: h.id, onClick: () => toggle(h.id, dateStr), className: `group p-4 rounded-2xl mb-4 border transition-all active:scale-95 cursor-pointer flex items-center justify-between relative overflow-hidden ${done ? `bg-gradient-to-r ${c.from} ${c.to} text-white border-transparent shadow-lg` : `${theme.card} ${theme.border}`}` },
-                                    e('div', { className: "flex items-center gap-4 relative z-10" },
-                                        e('div', { className: `p-3 rounded-xl ${done ? 'bg-white/20' : 'bg-black/5 dark:bg-white/5'}` }, e(SVGIcon, { name: h.icon, className: "w-6 h-6" })),
-                                        e('div', null,
-                                            e('div', { className: "font-bold text-lg leading-tight" }, h.title),
-                                            e('div', { className: "text-xs opacity-60" }, `本週: ${getWeekly(h.id)}/${h.goalPerWeek} ${h.unit}`)
-                                        )
-                                    ),
-                                    e('div', { className: "flex items-center gap-2 relative z-10" },
-                                        e('button', { onClick: (event) => { event.stopPropagation(); setEditingHabit(h); setModal('edit'); }, className: `p-2 transition-opacity lg:opacity-0 group-hover:opacity-100 ${done ? 'text-white/70' : theme.sub}` }, e(SVGIcon, { name: "edit", className: "w-4 h-4" })),
-                                        e('div', { className: `w-8 h-8 rounded-full border-2 flex items-center justify-center ${done ? 'bg-white border-white' : 'border-current opacity-20'}` }, done && e(SVGIcon, { name: "check", className: `w-5 h-5 ${c.text}` }))
-                                    )
-                                );
-                            }) : e('div', { className: "overflow-x-auto" }, e('div', { className: "min-w-[400px]" },
-                                e('div', { className: "grid grid-cols-[70px_repeat(7,1fr)] gap-2 mb-4 text-center text-[10px] font-bold opacity-40 uppercase" }, e('div', null, "習慣"), ['一','二','三','四','五','六','日'].map(l => e('div', { key: l }, l))),
-                                habits.map(h => e('div', { key: h.id, className: "grid grid-cols-[70px_repeat(7,1fr)] gap-2 items-center mb-4 text-xs font-bold" },
-                                    e('div', { className: "truncate opacity-80 pr-1" }, h.title),
-                                    [0,1,2,3,4,5,6].map(i => {
-                                        const d = new Date(weekStart); d.setDate(d.getDate() + i);
-                                        const ds = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-                                        const done = !!logs[`${h.id}-${ds}`];
-                                        return e('div', { key: i, onClick: () => toggle(h.id, ds), className: `w-8 h-8 rounded-lg flex items-center justify-center cursor-pointer transition-all ${done ? `bg-gradient-to-br ${COLOR_THEMES[h.color].from} ${COLOR_THEMES[h.color].to} text-white shadow-sm` : 'bg-white/5 border border-white/5'}` }, done && e(SVGIcon, { name: "check", className: "w-4 h-4" }));
-                                    })
-                                ))
-                            ))
-                        ),
+                            {/* Date Navigation */}
+                            <div className={`flex items-center justify-between p-3 mb-6 rounded-2xl border backdrop-blur-md ${theme.navBg} ${theme.cardBorder}`}>
+                                <button onClick={() => { const d = new Date(currentDate); d.setDate(d.getDate()-(view==='daily'?1:7)); setCurrentDate(d); }} className={theme.textSub}><Icon name="chevron-left" /></button>
+                                <div className={`font-bold ${theme.textMain}`}>{view === 'daily' ? currentDate.toLocaleDateString('zh-TW', { month: 'long', day: 'numeric', weekday: 'short' }) : '本週概覽'}</div>
+                                <button onClick={() => { const d = new Date(currentDate); d.setDate(d.getDate()+(view==='daily'?1:7)); setCurrentDate(d); }} className={theme.textSub}><Icon name="chevron-right" /></button>
+                            </div>
 
-                        e('button', { onClick: () => { setEditingHabit(null); setModal('edit'); }, className: `fixed bottom-8 right-8 w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center text-white bg-gradient-to-r ${theme.grad} active:scale-90 transition-transform z-40 border border-white/20` }, e(SVGIcon, { name: "plus", className: "w-8 h-8" })),
+                            {/* Main Content */}
+                            <div className="flex-1 overflow-y-auto no-scrollbar">
+                                {view === 'daily' ? (
+                                    habits.map(h => <HabitCard key={h.id} habit={h} />)
+                                ) : (
+                                    <WeeklyTable />
+                                )}
+                            </div>
+                        </div>
 
-                        modal && e('div', { className: "fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm" },
-                            e('div', { className: `w-full max-w-xs p-6 rounded-3xl ${theme.card} border ${theme.border} animate-pop shadow-2xl relative` },
-                                e('div', { className: "flex justify-between items-center mb-6" },
-                                    e('h2', { className: "font-black text-xl" }, modal === 'settings' ? '資料管理' : (editingHabit ? '編輯習慣' : '新習慣')),
-                                    e('button', { onClick: () => setModal(null) }, e(SVGIcon, { name: "x" }))
-                                ),
-                                modal === 'settings' ? e('div', { className: "space-y-4" },
-                                    e('button', { onClick: () => { const b = new Blob([JSON.stringify({logs, habits})], {type:'application/json'}); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download='backup.json'; a.click(); }, className: "w-full p-4 rounded-2xl border border-white/10 bg-white/5 flex justify-between items-center font-bold" }, e('span', null, "下載備份"), e(SVGIcon, { name: "download" })),
-                                    e('p', { className: "text-[10px] opacity-40 text-center leading-relaxed" }, "紀錄存於瀏覽器中，請定期備份。")
-                                ) : e('form', {
-                                    onSubmit: (event) => {
-                                        event.preventDefault();
-                                        const fd = new FormData(event.target);
-                                        const nH = { id: editingHabit?.id || `h-${Date.now()}`, title: fd.get('title'), goalPerWeek: parseInt(fd.get('goalPerWeek')), unit: fd.get('unit'), icon: editingHabit?.icon || 'sparkles', color: editingHabit?.color || 'cyan' };
-                                        setHabits(prev => editingHabit ? prev.map(h => h.id === nH.id ? nH : h) : [...prev, nH]);
-                                        setModal(null);
-                                    }, className: "space-y-4"
-                                },
-                                    e('input', { name: "title", required: true, defaultValue: editingHabit?.title, className: `w-full p-4 rounded-xl border ${theme.border} bg-transparent outline-none`, placeholder: "名稱" }),
-                                    e('div', { className: "flex gap-2" },
-                                        e('input', { name: "goalPerWeek", type: "number", min: "1", max: "7", defaultValue: editingHabit?.goalPerWeek || 5, className: `flex-1 p-4 rounded-xl border ${theme.border} bg-transparent outline-none` }),
-                                        e('input', { name: "unit", defaultValue: editingHabit?.unit || '次', className: `flex-1 p-4 rounded-xl border ${theme.border} bg-transparent outline-none` })
-                                    ),
-                                    e('div', { className: "flex gap-2 pt-2" },
-                                        editingHabit && e('button', { type: "button", onClick: () => { setHabits(habits.filter(h => h.id !== editingHabit.id)); setModal(null); }, className: "p-4 rounded-2xl bg-red-500/10 text-red-500" }, e(SVGIcon, { name: "trash" })),
-                                        e('button', { type: "submit", className: `flex-1 p-4 rounded-2xl text-white font-bold bg-gradient-to-r ${theme.grad} shadow-lg` }, "儲存")
-                                    )
-                                )
-                            )
-                        ),
+                        {/* Floating Action Button */}
+                        <button onClick={() => setIsEditing(true)} className={`absolute bottom-8 right-8 w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center text-white bg-gradient-to-r ${theme.headerGradient} active:scale-90 transition-transform`}><Icon name="plus" size={28} /></button>
 
-                        celebration && e('div', { className: "fixed inset-0 pointer-events-none flex items-center justify-center z-[100]" },
-                            e('div', { className: "bg-white/95 px-8 py-4 rounded-full shadow-2xl flex items-center gap-3 animate-bounce border border-emerald-500/10 text-slate-800 font-black" }, e(SVGIcon, { name: "partyPopper", className: "text-yellow-500" }), celebration)
-                        )
-                    )
-                )
+                        {/* Settings Modal */}
+                        {isSettingsOpen && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm animate-pop">
+                                <div className={`w-full max-w-xs p-6 rounded-3xl ${theme.cardBg} ${theme.textMain}`}>
+                                    <div className="flex justify-between items-center mb-6"><h2 className="font-black text-xl">資料管理</h2><button onClick={()=>setIsSettingsOpen(false)}><Icon name="x"/></button></div>
+                                    <button onClick={exportData} className="w-full p-4 mb-3 rounded-2xl border flex justify-between items-center font-bold"><span>下載備份 (.json)</span><Icon name="download"/></button>
+                                    <label className="w-full p-4 mb-3 rounded-2xl border flex justify-between items-center font-bold cursor-pointer"><span>匯入備份</span><Icon name="upload"/><input type="file" onChange={importData} className="hidden"/></label>
+                                    <p className="text-[10px] opacity-50 leading-relaxed">提示：資料目前儲存在瀏覽器中。清除快取會導致紀錄消失，建議每週備份一次檔案。</p>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Add Habit Modal */}
+                        {isEditing && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm animate-pop">
+                                <div className={`w-full max-w-xs p-6 rounded-3xl ${theme.cardBg} ${theme.textMain}`}>
+                                    <div className="flex justify-between mb-6"><h2 className="font-black text-xl">新習慣</h2><button onClick={()=>setIsEditing(false)}><Icon name="x"/></button></div>
+                                    <form onSubmit={handleSaveHabit} className="space-y-4">
+                                        <input name="title" required className="w-full p-3 rounded-xl border bg-transparent" placeholder="習慣名稱" />
+                                        <div className="flex gap-2">
+                                            <input name="goalPerWeek" type="number" min="1" max="7" defaultValue="5" className="flex-1 p-3 rounded-xl border bg-transparent" />
+                                            <input name="unit" defaultValue="次" className="flex-1 p-3 rounded-xl border bg-transparent" />
+                                        </div>
+                                        <button type="submit" className={`w-full p-4 rounded-2xl text-white font-bold bg-gradient-to-r ${theme.headerGradient}`}>儲存</button>
+                                    </form>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Celebration */}
+                        {celebration && (
+                            <div className="fixed inset-0 pointer-events-none flex items-center justify-center z-50">
+                                <div className="bg-white/90 px-8 py-4 rounded-full shadow-2xl flex items-center gap-2 animate-bounce border border-white">
+                                    <Icon name="party-popper" className="text-yellow-500" />
+                                    <span className="text-xl font-black text-slate-800">{celebration}</span>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
             );
-        };
-
-        // 確保 DOM 載入後立即啟動
-        const startApp = () => {
-            const rootElement = document.getElementById('root');
-            if (rootElement) {
-                const root = ReactDOM.createRoot(rootElement);
-                root.render(e(App));
-            }
-        };
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', startApp);
-        } else {
-            startApp();
         }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
