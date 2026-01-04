@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #4689cc; -webkit-text-stroke: #4689cc}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #c27e65; -webkit-text-stroke: #c27e65}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #8cd3fe; -webkit-text-stroke: #8cd3fe}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #cacaca; -webkit-text-stroke: #cacaca}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #6d7378; -webkit-text-stroke: #6d7378}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #71c083; -webkit-text-stroke: #71c083}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #cacaca; -webkit-text-stroke: #cacaca; min-height: 16.0px}
+    span.s1 {font-kerning: none; background-color: #171818}
+    span.s2 {font-kerning: none; color: #8cd3fe; background-color: #171818; -webkit-text-stroke: 0px #8cd3fe}
+    span.s3 {font-kerning: none; color: #6d6d6d; background-color: #171818; -webkit-text-stroke: 0px #6d6d6d}
+    span.s4 {font-kerning: none; color: #4689cc; background-color: #171818; -webkit-text-stroke: 0px #4689cc}
+    span.s5 {font-kerning: none; color: #cacaca; background-color: #171818; -webkit-text-stroke: 0px #cacaca}
+    span.s6 {font-kerning: none; color: #c27e65; background-color: #171818; -webkit-text-stroke: 0px #c27e65}
+    span.s7 {font-kerning: none; color: #d4d4d4; background-color: #171818; -webkit-text-stroke: 0px #d4d4d4}
+    span.s8 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE</span><span class="s2"> html</span><span class="s1">&gt;</span></p>
+<p class="p2"><span class="s3">&lt;</span><span class="s4">html</span><span class="s5"> </span><span class="s2">lang</span><span class="s3">=</span><span class="s1">"zh-TW"</span><span class="s3">&gt;</span></p>
+<p class="p1"><span class="s3">&lt;</span><span class="s1">head</span><span class="s3">&gt;</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">meta</span><span class="s5"> </span><span class="s1">charset</span><span class="s3">=</span><span class="s6">"UTF-8"</span><span class="s3">&gt;</span></p>
+<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">meta</span><span class="s5"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"viewport"</span><span class="s5"> </span><span class="s2">content</span><span class="s3">=</span><span class="s1">"width=device-width, initial-scale=1.0"</span><span class="s3">&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">title</span><span class="s3">&gt;</span><span class="s1">Habit Tracker 2026</span><span class="s3">&lt;/</span><span class="s4">title</span><span class="s3">&gt;</span></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- 引入 React, Babel (解析 JSX) 與 Tailwind CSS --&gt;</span></p>
+<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">script</span><span class="s5"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://unpkg.com/react@18/umd/react.production.min.js"</span><span class="s3">&gt;&lt;/</span><span class="s4">script</span><span class="s3">&gt;</span></p>
+<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">script</span><span class="s5"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"</span><span class="s3">&gt;&lt;/</span><span class="s4">script</span><span class="s3">&gt;</span></p>
+<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">script</span><span class="s5"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://unpkg.com/@babel/standalone/babel.min.js"</span><span class="s3">&gt;&lt;/</span><span class="s4">script</span><span class="s3">&gt;</span></p>
+<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">script</span><span class="s5"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://cdn.tailwindcss.com"</span><span class="s3">&gt;&lt;/</span><span class="s4">script</span><span class="s3">&gt;</span></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- 引入 Lucide 圖示庫 --&gt;</span></p>
+<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">script</span><span class="s5"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://unpkg.com/lucide@latest"</span><span class="s3">&gt;&lt;/</span><span class="s4">script</span><span class="s3">&gt;</span></p>
+<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">link</span><span class="s5"> </span><span class="s2">href</span><span class="s3">=</span><span class="s1">"https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&amp;display=swap"</span><span class="s5"> </span><span class="s2">rel</span><span class="s3">=</span><span class="s1">"stylesheet"</span><span class="s3">&gt;</span></p>
+<p class="p1"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s1">style</span><span class="s3">&gt;</span></p>
+<p class="p6"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s4">body</span><span class="s5"> </span><span class="s7">{</span><span class="s5"> </span><span class="s2">font-family:</span><span class="s5"> </span><span class="s1">'M PLUS Rounded 1c'</span><span class="s7">,</span><span class="s5"> </span><span class="s6">sans-serif</span><span class="s7">;</span><span class="s5"> </span><span class="s7">}</span></p>
+<p class="p1"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.no-scrollbar::-webkit-scrollbar</span><span class="s5"> </span><span class="s7">{</span><span class="s5"> </span><span class="s2">display:</span><span class="s5"> </span><span class="s6">none</span><span class="s7">;</span><span class="s5"> </span><span class="s7">}</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s4">.no-scrollbar</span><span class="s5"> </span><span class="s7">{</span><span class="s5"> </span><span class="s1">-ms-overflow-style:</span><span class="s5"> </span><span class="s6">none</span><span class="s7">;</span><span class="s5"> </span><span class="s1">scrollbar-width:</span><span class="s5"> </span><span class="s6">none</span><span class="s7">;</span><span class="s5"> </span><span class="s7">}</span></p>
+<p class="p1"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">style</span><span class="s3">&gt;</span></p>
+<p class="p1"><span class="s3">&lt;/</span><span class="s1">head</span><span class="s3">&gt;</span></p>
+<p class="p1"><span class="s3">&lt;</span><span class="s1">body</span><span class="s3">&gt;</span></p>
+<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">div</span><span class="s5"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"root"</span><span class="s3">&gt;&lt;/</span><span class="s4">div</span><span class="s3">&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p2"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s4">script</span><span class="s5"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"text/babel"</span><span class="s3">&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>// 從全域變數中取出 Lucide 圖示元件化</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const {<span class="Apple-converted-space"> </span></span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>Check, Calendar, Layout, ChevronLeft, ChevronRight,<span class="Apple-converted-space"> </span></span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>Droplets, Footprints, Dumbbell, Sparkles, Moon, Dog, Trophy, Activity,</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>TrendingUp, Plus, X, Edit2, Trash2, Sun, PartyPopper, Download, Upload, Settings<span class="Apple-converted-space"> </span></span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>} = lucide;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>// 為了讓 Lucide 在 React 中運作的簡單包裝</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const Icon = ({ name: IconComponent, ...props }) =&gt; {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>return &lt;IconComponent {...props} /&gt;;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const DEFAULT_HABITS = [</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>{ id: 'water', title: 'Waterllama 達標', icon: 'Droplets', color: 'cyan', goalPerWeek: 5, unit: '天' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>{ id: 'steps', title: '日走 7000 步', icon: 'Footprints', color: 'orange', goalPerWeek: 7, unit: '步' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>{ id: 'juc', title: '啾C 課程', icon: 'Activity', color: 'pink', goalPerWeek: 3, unit: '次' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>{ id: 'stretch', title: '晚間拉筋 15min', icon: 'Moon', color: 'indigo', goalPerWeek: 7, unit: '晚' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>{ id: 'weight', title: '重訓', icon: 'Dumbbell', color: 'emerald', goalPerWeek: 4, unit: '次' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>{ id: 'luna', title: 'Luna 訓練', icon: 'Dog', color: 'violet', goalPerWeek: 5, unit: '次' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>];</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const ICONS_MAP = { Droplets, Footprints, Activity, Moon, Dumbbell, Trophy, Dog, Sparkles };</span></p>
+<p class="p7"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const COLOR_THEMES = {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>cyan: { from: 'from-cyan-400', to: 'to-blue-500', text: 'text-cyan-500', bg: 'bg-cyan-500' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>orange: { from: 'from-orange-400', to: 'to-red-500', text: 'text-orange-500', bg: 'bg-orange-500' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>pink: { from: 'from-pink-400', to: 'to-rose-500', text: 'text-pink-500', bg: 'bg-pink-500' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>indigo: { from: 'from-indigo-400', to: 'to-purple-500', text: 'text-indigo-500', bg: 'bg-indigo-500' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>emerald: { from: 'from-emerald-400', to: 'to-green-500', text: 'text-emerald-500', bg: 'bg-emerald-500' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>yellow: { from: 'from-yellow-400', to: 'to-amber-500', text: 'text-yellow-500', bg: 'bg-yellow-500' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>violet: { from: 'from-violet-400', to: 'to-fuchsia-500', text: 'text-violet-500', bg: 'bg-violet-500' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const getDateString = (date) =&gt; date.toISOString().split('T')[0];</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const getWeekStart = (date) =&gt; {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const d = new Date(date);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const day = d.getDay();</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const diff = d.getDate() - (day === 0 ? 6 : day - 1);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>d.setDate(diff);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>d.setHours(0,0,0,0);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>return d;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const getDaysInWeek = (startDate) =&gt; {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const days = [];</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>for (let i = 0; i &lt; 7; i++) {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const d = new Date(startDate);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>d.setDate(d.getDate() + i);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>days.push(getDateString(d));</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>return days;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>function App() {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [logs, setLogs] = React.useState({});</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [habits, setHabits] = React.useState(DEFAULT_HABITS);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [currentDate, setCurrentDate] = React.useState(new Date());</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [view, setView] = React.useState('daily');</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [themeMode, setThemeMode] = React.useState('night');</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [isEditing, setIsEditing] = React.useState(false);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [editingHabit, setEditingHabit] = React.useState(null);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const [celebration, setCelebration] = React.useState(null);</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>React.useEffect(() =&gt; {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const savedLogs = localStorage.getItem('habit2026_logs');</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const savedHabits = localStorage.getItem('habit2026_list');</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>if (savedLogs) setLogs(JSON.parse(savedLogs));</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>if (savedHabits) setHabits(JSON.parse(savedHabits));</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const hour = new Date().getHours();</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>setThemeMode(hour &gt;= 6 &amp;&amp; hour &lt; 18 ? 'day' : 'night');</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>}, []);</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>React.useEffect(() =&gt; {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>localStorage.setItem('habit2026_logs', JSON.stringify(logs));</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>localStorage.setItem('habit2026_list', JSON.stringify(habits));</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>}, [logs, habits]);</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const themeStyles = {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>day: { bg: 'bg-stone-100', textMain: 'text-stone-800', textSub: 'text-stone-500', cardBg: 'bg-white', cardBorder: 'border-stone-200', headerGradient: 'from-emerald-600 to-teal-600', buttonActive: 'bg-stone-200 text-stone-800', buttonInactive: 'text-stone-400 hover:text-stone-600', navBg: 'bg-white/50 border-stone-200/50', glowTop: 'bg-emerald-400/20', glowBottom: 'bg-teal-400/20' },</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>night: { bg: 'bg-slate-950', textMain: 'text-slate-200', textSub: 'text-slate-400', cardBg: 'bg-slate-800', cardBorder: 'border-slate-700', headerGradient: 'from-blue-400 to-purple-400', buttonActive: 'bg-slate-600 text-white', buttonInactive: 'text-slate-400 hover:text-white', navBg: 'bg-slate-800/50 border-slate-700/50', glowTop: 'bg-blue-600/10', glowBottom: 'bg-purple-600/10' }</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const t = themeStyles[themeMode];</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const toggleHabit = (habitId, dateStr) =&gt; {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const key = `${habitId}-${dateStr}`;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>setLogs(prev =&gt; {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>const next = { ...prev };</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>if (next[key]) delete next[key];</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>else {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>next[key] = true;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>setCelebration("做得好！");</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>setTimeout(() =&gt; setCelebration(null), 1500);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>return next;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>const exportData = () =&gt; {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const data = { logs, habits };</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>const a = document.createElement('a');</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>a.href = URL.createObjectURL(blob);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>a.download = `backup-${getDateString(new Date())}.json`;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>a.click();</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>return (</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div className={`min-h-screen transition-colors duration-500 ${t.bg}`}&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div className={`max-w-md mx-auto min-h-screen relative flex flex-col ${themeMode === 'day' ? 'bg-white' : 'bg-slate-950'} shadow-xl`}&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{/* 頂部裝飾 */}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className={`absolute top-0 w-full h-64 blur-[80px] ${t.glowTop}`} /&gt;</span></p>
+<p class="p7"><span class="s1"><span class="Apple-converted-space">                        </span></span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{/* 內容區 */}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className="relative z-10 p-6 flex-1 flex flex-col"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="flex justify-between items-center mb-8"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;h1 className={`text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r ${t.headerGradient}`}&gt;Habit 2026&lt;/h1&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="text-[10px] font-bold opacity-40 tracking-widest uppercase flex items-center gap-1"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>{themeMode === 'day' ? &lt;Sun size={10}/&gt; : &lt;Moon size={10}/&gt;}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>{themeMode === 'day' ? '青山模式' : '海洋模式'}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className="flex gap-2"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;button onClick={() =&gt; setIsSettingsOpen(true)} className={`p-2 rounded-xl ${t.buttonInactive}`}&gt;&lt;Settings size={20}/&gt;&lt;/button&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className={`flex rounded-xl p-1 ${themeMode === 'day' ? 'bg-stone-200/40' : 'bg-slate-800/40'}`}&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;button onClick={()=&gt;setView('daily')} className={`p-2 rounded-lg ${view==='daily'?t.buttonActive:t.buttonInactive}`}&gt;&lt;Layout size={18}/&gt;&lt;/button&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;button onClick={()=&gt;setView('weekly')} className={`p-2 rounded-lg ${view==='weekly'?t.buttonActive:t.buttonInactive}`}&gt;&lt;Calendar size={18}/&gt;&lt;/button&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>{/* 主要顯示區域 */}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="flex-1 overflow-y-auto no-scrollbar"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>{view === 'daily' ? (</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="space-y-4"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>{habits.map(h =&gt; {</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                            </span>const isDone = !!logs[`${h.id}-${getDateString(currentDate)}`];</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                            </span>const color = COLOR_THEMES[h.color];</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                            </span>return (</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;div<span class="Apple-converted-space"> </span></span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                    </span>key={h.id}<span class="Apple-converted-space"> </span></span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                    </span>onClick={() =&gt; toggleHabit(h.id, getDateString(currentDate))}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                    </span>className={`p-4 rounded-2xl border transition-all cursor-pointer ${isDone ? `bg-gradient-to-r ${color.from} ${color.to} border-transparent text-white shadow-lg` : `${t.cardBg} ${t.cardBorder} ${t.textMain}`}`}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                </span>&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;div className="flex justify-between items-center"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                        </span>&lt;div className="flex items-center gap-4"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                            </span>&lt;div className={`p-2 rounded-xl ${isDone ? 'bg-white/20' : 'bg-stone-100 dark:bg-slate-700'}`}&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                                </span>&lt;Icon name={ICONS_MAP[h.icon] || Sparkles} size={20} /&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                            </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                            </span>&lt;span className="font-bold"&gt;{h.title}&lt;/span&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                        </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                        </span>&lt;div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${isDone ? 'bg-white border-white' : 'border-current opacity-30'}`}&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                            </span>{isDone &amp;&amp; &lt;Check size={14} className={color.text} /&gt;}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                        </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                            </span>)</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>})}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>) : (</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="text-center py-10 opacity-50"&gt;週檢視模式&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>)}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{/* 設定視窗 */}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{isSettingsOpen &amp;&amp; (</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className={`w-full max-w-xs p-6 rounded-3xl ${t.cardBg} ${t.textMain}`}&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="flex justify-between mb-6"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;h2 className="font-black text-xl"&gt;資料管理&lt;/h2&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;button onClick={()=&gt;setIsSettingsOpen(false)}&gt;&lt;X/&gt;&lt;/button&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;button onClick={exportData} className="w-full p-4 mb-4 rounded-2xl border flex justify-between font-bold"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;span&gt;下載備份 (.json)&lt;/span&gt;&lt;Download size={20}/&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/button&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-[10px] opacity-50"&gt;提示：資料目前存在瀏覽器中，清除快取後會消失，請記得定期備份。&lt;/p&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>)}</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{/* 慶祝動畫 */}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>{celebration &amp;&amp; (</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="fixed inset-0 pointer-events-none flex items-center justify-center z-50"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className="bg-white px-8 py-4 rounded-full shadow-2xl flex items-center gap-2 animate-bounce"&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;PartyPopper className="text-yellow-500" /&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;span className="text-xl font-black text-slate-800"&gt;{celebration}&lt;/span&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>)}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>);</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>const root = ReactDOM.createRoot(document.getElementById('root'));</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>root.render(&lt;App /&gt;);</span></p>
+<p class="p1"><span class="s5"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">script</span><span class="s3">&gt;</span></p>
+<p class="p1"><span class="s3">&lt;/</span><span class="s1">body</span><span class="s3">&gt;</span></p>
+<p class="p1"><span class="s3">&lt;/</span><span class="s1">html</span><span class="s3">&gt;</span></p>
+</body>
+</html>
