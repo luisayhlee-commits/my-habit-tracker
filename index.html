@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Habit Tracker 2026</title>
-    <!-- 核心套件 -->
+    <!-- 核心套件：確保使用正確的 CDN 與 crossorigin 屬性 -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
@@ -17,6 +17,7 @@
             background-color: #020617; 
             margin: 0;
             padding: 0;
+            color: white;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -24,9 +25,20 @@
         .animate-pop { animation: bounce-small 0.5s ease-out forwards; }
         @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
         .animate-fade { animation: fade-in 0.2s ease-out forwards; }
+        
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #020617;
+            z-index: 9999;
+        }
     </style>
 </head>
 <body>
+    <div id="loading-screen">載入中...</div>
     <div id="root"></div>
 
     <script type="text/babel">
@@ -187,7 +199,7 @@
             };
 
             return (
-                <div className={`min-h-screen ${theme.bg} ${theme.text} transition-colors duration-500`}>
+                <div className={`min-h-screen ${theme.bg} ${theme.text} transition-colors duration-500 animate-fade`}>
                     <div className="max-w-md mx-auto min-h-screen flex flex-col relative bg-inherit shadow-2xl overflow-hidden">
                         
                         {/* Header */}
@@ -209,7 +221,6 @@
                                 </div>
                             </div>
 
-                            {/* Date Navigation */}
                             <div className={`flex items-center justify-between p-3 rounded-2xl border ${theme.border} ${theme.nav} backdrop-blur-md`}>
                                 <button onClick={() => { const d = new Date(currentDate); d.setDate(d.getDate()-(view==='daily'?1:7)); setCurrentDate(d); }}><SVGIcon name="chevronLeft" className="w-6 h-6 opacity-50"/></button>
                                 <div className="font-bold text-sm">
@@ -391,8 +402,16 @@
             );
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        // 穩定啟動：確保 DOM 完全載入後才執行 React
+        document.addEventListener('DOMContentLoaded', () => {
+            const loading = document.getElementById('loading-screen');
+            const rootElement = document.getElementById('root');
+            if (rootElement) {
+                const root = ReactDOM.createRoot(rootElement);
+                root.render(<App />);
+                if (loading) loading.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
