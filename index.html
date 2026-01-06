@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Habit Tracker 2026</title>
-    <!-- 引入 React 與支援原生運行的工具，不需 Babel 編譯 -->
+    <!-- 引入 React 與支援原生運行的工具，不需 Babel 編譯，確保 GitHub Pages 穩定秒開 -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/htm@3.1.1/dist/htm.umd.js"></script>
@@ -29,7 +29,6 @@
     <div id="root"></div>
 
     <script>
-        // 設定運行環境，使用 htm 替代 JSX，確保在所有瀏覽器都能「秒開」
         const html = htm.bind(React.createElement);
         const { useState, useEffect, useMemo } = React;
 
@@ -44,15 +43,16 @@
                 dog: html`<path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-1.923.321-3.5 1.424-3.5 2.814 0 1.258 1.303 2.304 3 2.704v5.3c0 2.21 1.79 4 4 4h4a4 4 0 0 0 4-4V8.518c1.697-.4 3-1.446 3-2.704 0-1.39-1.577-2.493-3.5-2.814-1.923-.321-3.5.782-3.5 2.172v.328h-4v-.328z"/>`,
                 plus: html`<path d="M12 5v14M5 12h14"/>`,
                 check: html`<path d="M20 6 9 17l-5-5"/>`,
-                settings: html`<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V11a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>`,
                 calendar: html`<rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>`,
                 layout: html`<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>`,
+                trendingUp: html`<path d="M23 6l-9.5 9.5-5-5L1 18"/><polyline points="17 6 23 6 23 12"/>`,
                 chevronLeft: html`<polyline points="15 18 9 12 15 6"/>`,
                 chevronRight: html`<polyline points="9 18 15 12 9 6"/>`,
                 trash: html`<path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>`,
                 sun: html`<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`,
                 x: html`<path d="M18 6 6 18M6 6l12 12"/>`,
-                download: html`<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>`
+                download: html`<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>`,
+                sparkles: html`<path d="m12 3 1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3z"/>`
             };
             return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=${className}>${icons[name]}</svg>`;
         };
@@ -90,9 +90,15 @@
             }, [logs, habits]);
 
             const dateStr = currentDate.toISOString().split('T')[0];
-            const weekStart = new Date(currentDate);
-            weekStart.setDate(weekStart.getDate() - (weekStart.getDay() === 0 ? 6 : weekStart.getDay() - 1));
-            weekStart.setHours(0,0,0,0);
+            const getMonday = (d) => {
+                const day = d.getDay();
+                const diff = d.getDate() - (day === 0 ? 6 : day - 1);
+                const res = new Date(d.setDate(diff));
+                res.setHours(0,0,0,0);
+                return res;
+            };
+
+            const weekStart = getMonday(new Date(currentDate));
 
             const toggle = (id, dStr) => {
                 setLogs(prev => {
@@ -103,14 +109,39 @@
                 });
             };
 
-            const getWeeklyCount = (id) => {
+            const getWeeklyCount = (id, startDate) => {
                 let count = 0;
                 for (let i = 0; i < 7; i++) {
-                    const d = new Date(weekStart);
+                    const d = new Date(startDate);
                     d.setDate(d.getDate() + i);
                     if (logs[`${id}-${d.toISOString().split('T')[0]}`]) count++;
                 }
                 return count;
+            };
+
+            const calculateStats = (habit) => {
+                let streak = 0;
+                let current = getMonday(new Date());
+                while (getWeeklyCount(habit.id, current) >= habit.goalPerWeek) {
+                    streak++;
+                    current.setDate(current.getDate() - 7);
+                }
+                let annual = 0;
+                let checker = getMonday(new Date(new Date().getFullYear(), 0, 1));
+                const now = new Date();
+                while (checker <= now) {
+                    if (getWeeklyCount(habit.id, checker) >= habit.goalPerWeek) annual++;
+                    checker.setDate(checker.getDate() + 7);
+                }
+                return { streak, annual };
+            };
+
+            const exportData = () => {
+                const b = new Blob([JSON.stringify({logs, habits})], {type:'application/json'}); 
+                const a = document.createElement('a'); 
+                a.href = URL.createObjectURL(b); 
+                a.download=`habit-backup-${new Date().toISOString().split('T')[0]}.json`; 
+                a.click();
             };
 
             const theme = themeMode === 'day' ? 
@@ -130,34 +161,36 @@
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
-                                    <button onClick=${() => setModal('settings')} class="p-2 opacity-50"><${Icon} name="settings" /></button>
                                     <div class="flex bg-white/10 p-1 rounded-xl backdrop-blur-sm">
-                                        <button onClick=${()=>setView('daily')} class=${`p-2 rounded-lg transition-all ${view==='daily'?'bg-white/20 shadow-sm':'opacity-40'}`}><${Icon} name="layout" /></button>
-                                        <button onClick=${()=>setView('weekly')} class=${`p-2 rounded-lg transition-all ${view==='weekly'?'bg-white/20 shadow-sm':'opacity-40'}`}><${Icon} name="calendar" /></button>
+                                        <button title="每日" onClick=${()=>setView('daily')} class=${`p-2 rounded-lg transition-all ${view==='daily'?'bg-white/20 shadow-sm text-white':'opacity-40'}`}><${Icon} name="layout" /></button>
+                                        <button title="週曆" onClick=${()=>setView('weekly')} class=${`p-2 rounded-lg transition-all ${view==='weekly'?'bg-white/20 shadow-sm text-white':'opacity-40'}`}><${Icon} name="calendar" /></button>
+                                        <button title="成就" onClick=${()=>setView('stats')} class=${`p-2 rounded-lg transition-all ${view==='stats'?'bg-white/20 shadow-sm text-white':'opacity-40'}`}><${Icon} name="trendingUp" /></button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="flex items-center justify-between p-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md">
-                                <button onClick=${() => { const d = new Date(currentDate); d.setDate(d.getDate() - (view === 'daily' ? 1 : 7)); setCurrentDate(d); }} class="p-1 opacity-50"><${Icon} name="chevronLeft"/></button>
-                                <span class="font-bold text-base">
-                                    ${view === 'daily' ? currentDate.toLocaleDateString('zh-TW', { month: 'long', day: 'numeric', weekday: 'short' }) : `${weekStart.getMonth()+1}/${weekStart.getDate()} 當週概覽`}
-                                </span>
-                                <button onClick=${() => { const d = new Date(currentDate); d.setDate(d.getDate() + (view === 'daily' ? 1 : 7)); setCurrentDate(d); }} class="p-1 opacity-50"><${Icon} name="chevronRight"/></button>
-                            </div>
+                            ${view !== 'stats' && html`
+                                <div class="flex items-center justify-between p-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md">
+                                    <button onClick=${() => { const d = new Date(currentDate); d.setDate(d.getDate() - (view === 'daily' ? 1 : 7)); setCurrentDate(d); }} class="p-1 opacity-50"><${Icon} name="chevronLeft"/></button>
+                                    <span class="font-bold text-base">
+                                        ${view === 'daily' ? currentDate.toLocaleDateString('zh-TW', { month: 'long', day: 'numeric', weekday: 'short' }) : `${weekStart.getMonth()+1}/${weekStart.getDate()} 當週概覽`}
+                                    </span>
+                                    <button onClick=${() => { const d = new Date(currentDate); d.setDate(d.getDate() + (view === 'daily' ? 1 : 7)); setCurrentDate(d); }} class="p-1 opacity-50"><${Icon} name="chevronRight"/></button>
+                                </div>
+                            `}
                         </header>
 
-                        <main class="flex-1 p-6 overflow-y-auto no-scrollbar">
-                            ${view === 'daily' ? habits.map(h => {
+                        <main class="flex-1 p-6 overflow-y-auto no-scrollbar pb-32">
+                            ${view === 'daily' && habits.map(h => {
                                 const done = !!logs[`${h.id}-${dateStr}`];
                                 const c = THEMES[h.color] || THEMES.cyan;
                                 return html`
                                     <div key=${h.id} onClick=${() => toggle(h.id, dateStr)} class=${`p-4 rounded-2xl mb-4 border transition-all active:scale-95 cursor-pointer flex items-center justify-between ${done ? `bg-gradient-to-r ${c.from} ${c.to} text-white border-transparent shadow-lg` : `${theme.card} ${theme.border}`}`}>
                                         <div class="flex items-center gap-4">
-                                            <div class=${`p-3 rounded-xl ${done ? 'bg-white/20' : 'bg-black/5'}`}><${Icon} name=${h.icon} className="w-6 h-6"/></div>
+                                            <div class=${`p-3 rounded-xl ${done ? 'bg-white/20' : 'bg-black/5 dark:bg-white/5'}`}><${Icon} name=${h.icon} className="w-6 h-6"/></div>
                                             <div>
                                                 <div class="font-bold text-lg leading-tight">${h.title}</div>
-                                                <div class="text-xs opacity-60">本週: ${getWeeklyCount(h.id)}/${h.goalPerWeek} ${h.unit}</div>
+                                                <div class="text-xs opacity-60">本週: ${getWeeklyCount(h.id, weekStart)}/${h.goalPerWeek} ${h.unit}</div>
                                             </div>
                                         </div>
                                         <div class=${`w-8 h-8 rounded-full border-2 flex items-center justify-center ${done ? 'bg-white border-white' : 'border-current opacity-20'}`}>
@@ -165,7 +198,9 @@
                                         </div>
                                     </div>
                                 `;
-                            }) : html`
+                            })}
+
+                            ${view === 'weekly' && html`
                                 <div class="overflow-x-auto"><div class="min-w-[420px]">
                                     <div class="grid grid-cols-[80px_repeat(7,1fr)] gap-2 mb-6 text-center text-sm font-bold opacity-60 uppercase">
                                         <div>習慣</div>
@@ -193,6 +228,48 @@
                                     `)}
                                 </div></div>
                             `}
+
+                            ${view === 'stats' && html`
+                                <div class="space-y-4">
+                                    <h2 class="text-xl font-black mb-6">成就統計中心</h2>
+                                    ${habits.map(h => {
+                                        const stats = calculateStats(h);
+                                        const c = THEMES[h.color] || THEMES.cyan;
+                                        return html`
+                                            <div key=${h.id} class=${`p-5 rounded-3xl border ${theme.card} ${theme.border} flex items-center justify-between`}>
+                                                <div class="flex items-center gap-4">
+                                                    <div class=${`p-3 rounded-2xl bg-gradient-to-br ${c.from} ${c.to} text-white shadow-lg`}>
+                                                        <${Icon} name=${h.icon} className="w-6 h-6"/>
+                                                    </div>
+                                                    <div>
+                                                        <div class="font-bold text-sm opacity-80">${h.title}</div>
+                                                        <div class="text-[10px] opacity-40 uppercase">目標 每週 ${h.goalPerWeek} ${h.unit}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex gap-4 items-center">
+                                                    <div class="text-center">
+                                                        <div class=${`text-xl font-black ${c.text}`}>${stats.streak}</div>
+                                                        <div class="text-[8px] opacity-30 font-bold">連續週數</div>
+                                                    </div>
+                                                    <div class="w-px h-6 bg-white/10"></div>
+                                                    <div class="text-center">
+                                                        <div class="text-xl font-black">${stats.annual}</div>
+                                                        <div class="text-[8px] opacity-30 font-bold">年度達成</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `;
+                                    })}
+                                    
+                                    <div class="pt-8">
+                                        <button onClick=${exportData} class="w-full p-4 rounded-3xl border border-white/10 bg-white/5 flex items-center justify-center gap-3 font-bold opacity-60 hover:opacity-100 transition-opacity">
+                                            <${Icon} name="download" />
+                                            <span>下載資料備份 (.json)</span>
+                                        </button>
+                                        <p class="text-[10px] opacity-30 text-center mt-3">定期備份可避免清除快取後資料遺失</p>
+                                    </div>
+                                </div>
+                            `}
                         </main>
 
                         <button onClick=${() => { setEditingHabit(null); setModal('edit'); }} class=${`fixed bottom-8 right-8 w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center text-white bg-gradient-to-r ${theme.grad} active:scale-90 transition-transform z-40 border border-white/20`}><${Icon} name="plus" className="w-8 h-8"/></button>
@@ -201,23 +278,15 @@
                             <div class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm animate-pop">
                                 <div class=${`w-full max-w-xs p-6 rounded-3xl ${theme.card} border ${theme.border} shadow-2xl relative text-white`}>
                                     <div class="flex justify-between items-center mb-6">
-                                        <h2 class="font-black text-xl">${modal === 'settings' ? '資料管理' : (editingHabit ? '編輯習慣' : '新習慣')}</h2>
+                                        <h2 class="font-black text-xl">${modal === 'confirmDelete' ? '確定刪除？' : (editingHabit ? '編輯習慣' : '新習慣')}</h2>
                                         <button onClick=${()=>setModal(null)} class="p-1 opacity-50"><${Icon} name="x" className="w-6 h-6"/></button>
                                     </div>
 
-                                    ${modal === 'settings' ? html`
-                                        <div class="space-y-4">
-                                            <button onClick=${() => { const b = new Blob([JSON.stringify({logs, habits})], {type:'application/json'}); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download='habit-backup.json'; a.click(); }} class="w-full p-4 rounded-2xl border border-white/10 bg-white/5 flex justify-between items-center font-bold">
-                                                <span>下載備份 (.json)</span>
-                                                <${Icon} name="download" className="w-5 h-5"/>
-                                            </button>
-                                            <p class="text-[10px] opacity-40 text-center">紀錄存於瀏覽器中，請定期下載備份。</p>
-                                        </div>
-                                    ` : html`
+                                    ${modal === 'edit' ? html`
                                         <form onSubmit=${(e) => {
                                             e.preventDefault();
                                             const fd = new FormData(e.target);
-                                            const nH = { id: editingHabit?.id || `h-${Date.now()}`, title: fd.get('title'), goalPerWeek: parseInt(fd.get('goalPerWeek')), unit: fd.get('unit'), icon: editingHabit?.icon || 'plus', color: editingHabit?.color || 'cyan' };
+                                            const nH = { id: editingHabit?.id || `h-${Date.now()}`, title: fd.get('title'), goalPerWeek: parseInt(fd.get('goalPerWeek')), unit: fd.get('unit'), icon: editingHabit?.icon || 'sparkles', color: editingHabit?.color || 'cyan' };
                                             setHabits(prev => editingHabit ? prev.map(h => h.id === nH.id ? nH : h) : [...prev, nH]);
                                             setModal(null);
                                         }} class="space-y-4">
@@ -227,10 +296,18 @@
                                                 <input name="unit" defaultValue=${editingHabit?.unit || '次'} class="flex-1 p-4 rounded-xl border border-white/10 bg-white/5 outline-none" />
                                             </div>
                                             <div class="flex gap-2 pt-2">
-                                                ${editingHabit && html`<button type="button" onClick=${() => { setHabits(habits.filter(h => h.id !== editingHabit.id)); setModal(null); }} class="p-4 rounded-2xl bg-red-500/20 text-red-500"><${Icon} name="trash" className="w-5 h-5"/></button>`}
+                                                ${editingHabit && html`<button type="button" onClick=${() => setModal('confirmDelete')} class="p-4 rounded-2xl bg-red-500/20 text-red-500"><${Icon} name="trash" className="w-5 h-5"/></button>`}
                                                 <button type="submit" class=${`flex-1 p-4 rounded-2xl text-white font-bold bg-gradient-to-r ${theme.grad} shadow-lg active:scale-95 transition-transform`}>儲存習慣</button>
                                             </div>
                                         </form>
+                                    ` : html`
+                                        <div class="space-y-6">
+                                            <p class="text-sm opacity-70">確定要永久刪除此習慣嗎？</p>
+                                            <div class="flex gap-3">
+                                                <button onClick=${() => setModal('edit')} class="flex-1 p-3 rounded-xl border border-white/10 font-bold">取消</button>
+                                                <button onClick=${() => { setHabits(habits.filter(h => h.id !== editingHabit.id)); setModal(null); }} class="flex-1 p-3 rounded-xl bg-red-500 text-white font-bold">確定刪除</button>
+                                            </div>
+                                        </div>
                                     `}
                                 </div>
                             </div>
