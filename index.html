@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Habit Tracker 2026</title>
-    <!-- 引入核心套件 -->
+    <!-- 引入核心套件：確保使用正確的 CDN 與 crossorigin 屬性 -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
@@ -19,7 +19,7 @@
             margin: 0;
             user-select: none;
             color: white;
-            overflow-x: hidden;
+            overflow: hidden; /* 防止啟動時捲動 */
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -35,11 +35,12 @@
             justify-content: center;
             background: #020617;
             z-index: 9999;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s ease;
         }
     </style>
 </head>
 <body>
+    <!-- 啟動畫面 -->
     <div id="loader">
         <div class="flex flex-col items-center gap-4">
             <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
@@ -49,6 +50,7 @@
 
     <div id="root"></div>
 
+    <!-- 將 Babel 腳本加上 ID 並確保順序 -->
     <script type="text/babel">
         const { useState, useEffect, useMemo, useRef } = React;
 
@@ -114,16 +116,13 @@
             const [modal, setModal] = useState(null); // 'edit', 'settings', 'confirmDelete'
             const [editingHabit, setEditingHabit] = useState(null);
 
-            // 啟動後強制隱藏載入動畫
+            // 當 React 成功執行並啟動後，隱藏載入動畫
             useEffect(() => {
-                const hideLoader = () => {
-                    const loader = document.getElementById('loader');
-                    if (loader) {
-                        loader.style.opacity = '0';
-                        setTimeout(() => loader.style.display = 'none', 500);
-                    }
-                };
-                hideLoader();
+                const loader = document.getElementById('loader');
+                if (loader) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => loader.style.display = 'none', 500);
+                }
             }, []);
 
             useEffect(() => {
@@ -223,7 +222,7 @@
                                         <div>習慣</div>
                                         {['一','二','三','四','五','六','日'].map((l, i) => {
                                             const d = new Date(weekStart); d.setDate(d.getDate()+i);
-                                            return <div key={i}><div className="text-sm text-blue-400 font-bold mb-1">{d.getDate()}</div>{l}</div>
+                                            return <div key={i}><div className="text-lg text-blue-400 font-black mb-1">{d.getDate()}</div>{l}</div>
                                         })}
                                     </div>
                                     {habits.map(h => (
@@ -235,7 +234,7 @@
                                                 const done = !!logs[`${h.id}-${dS}`];
                                                 return (
                                                     <div key={i} className="flex justify-center" onClick={() => toggle(h.id, dS)}>
-                                                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer ${done ? `bg-gradient-to-br ${THEMES[h.color].from} ${THEMES[h.color].to} text-white shadow-md` : 'bg-white/5 border border-white/10'}`}>
+                                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all cursor-pointer ${done ? `bg-gradient-to-br ${THEMES[h.color].from} ${THEMES[h.color].to} text-white shadow-md` : 'bg-white/5 border border-white/10'}`}>
                                                             {done && <Icon name="check" className="w-5 h-5" />}
                                                         </div>
                                                     </div>
@@ -253,7 +252,7 @@
                         {/* 彈出視窗：管理與編輯 */}
                         {modal && (
                             <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm animate-pop">
-                                <div className={`w-full max-w-xs p-6 rounded-3xl ${theme.card} border ${theme.border} shadow-2xl relative`}>
+                                <div className={`w-full max-w-xs p-6 rounded-3xl ${theme.card} border ${theme.border} shadow-2xl relative text-white`}>
                                     <div className="flex justify-between items-center mb-6">
                                         <h2 className="font-black text-xl">
                                             {modal === 'settings' ? '資料管理' : 
@@ -275,7 +274,7 @@
                                                 <span>下載備份 (.json)</span>
                                                 <Icon name="download" className="w-5 h-5"/>
                                             </button>
-                                            <p className="text-[10px] opacity-40 text-center leading-relaxed">提示：資料存於瀏覽器中，清除快取後會消失。</p>
+                                            <p className="text-[10px] opacity-40 text-center leading-relaxed">提示：資料目前存於瀏覽器中，清除快取後紀錄會消失。</p>
                                         </div>
                                     )}
 
@@ -286,21 +285,21 @@
                                             const nH = { id: editingHabit?.id || `h-${Date.now()}`, title: fd.get('title'), goalPerWeek: parseInt(fd.get('goalPerWeek')), unit: fd.get('unit'), icon: editingHabit?.icon || 'sparkles', color: editingHabit?.color || 'cyan' };
                                             setHabits(prev => editingHabit ? prev.map(h => h.id === nH.id ? nH : h) : [...prev, nH]);
                                             setModal(null);
-                                        }} className="space-y-4 text-slate-800 dark:text-white">
-                                            <input name="title" required defaultValue={editingHabit?.title} className="w-full p-4 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-900 outline-none focus:border-blue-500 transition-colors" placeholder="習慣名稱" />
+                                        }} className="space-y-4 text-white">
+                                            <input name="title" required defaultValue={editingHabit?.title} className="w-full p-4 rounded-xl border border-white/10 bg-white/5 outline-none focus:border-blue-500 transition-colors" placeholder="習慣名稱" />
                                             <div className="flex gap-2">
                                                 <div className="flex-1">
                                                     <label className="text-[10px] opacity-40 font-bold ml-1 uppercase">每週目標</label>
-                                                    <input name="goalPerWeek" type="number" min="1" max="7" defaultValue={editingHabit?.goalPerWeek || 5} className="w-full p-4 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-900 outline-none focus:border-blue-500" />
+                                                    <input name="goalPerWeek" type="number" min="1" max="7" defaultValue={editingHabit?.goalPerWeek || 5} className="w-full p-4 rounded-xl border border-white/10 bg-white/5 outline-none focus:border-blue-500" />
                                                 </div>
                                                 <div className="flex-1">
                                                     <label className="text-[10px] opacity-40 font-bold ml-1 uppercase">單位</label>
-                                                    <input name="unit" defaultValue={editingHabit?.unit || '次'} className="w-full p-4 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-900 outline-none focus:border-blue-500" />
+                                                    <input name="unit" defaultValue={editingHabit?.unit || '次'} className="w-full p-4 rounded-xl border border-white/10 bg-white/5 outline-none focus:border-blue-500" />
                                                 </div>
                                             </div>
                                             <div className="flex gap-2 pt-2">
                                                 {editingHabit && (
-                                                    <button type="button" onClick={() => setModal('confirmDelete')} className="p-4 rounded-2xl bg-red-100 dark:bg-red-500/20 text-red-500">
+                                                    <button type="button" onClick={() => setModal('confirmDelete')} className="p-4 rounded-2xl bg-red-500/20 text-red-500">
                                                         <Icon name="trash" className="w-5 h-5"/>
                                                     </button>
                                                 )}
@@ -311,9 +310,9 @@
 
                                     {modal === 'confirmDelete' && (
                                         <div className="space-y-6">
-                                            <p className="text-sm opacity-70">您確定要刪除「{editingHabit?.title}」嗎？此操作無法還原。</p>
+                                            <p className="text-sm opacity-70 leading-relaxed">您確定要刪除「{editingHabit?.title}」嗎？此操作將永久移除該習慣及其所有打卡紀錄。</p>
                                             <div className="flex gap-3">
-                                                <button onClick={() => setModal('edit')} className="flex-1 p-3 rounded-xl border border-stone-200 dark:border-slate-700 font-bold">取消</button>
+                                                <button onClick={() => setModal('edit')} className="flex-1 p-3 rounded-xl border border-white/10 font-bold">取消</button>
                                                 <button onClick={() => {
                                                     setHabits(habits.filter(h => h.id !== editingHabit.id));
                                                     setModal(null);
@@ -329,18 +328,25 @@
             );
         }
 
-        // 直接在 Babel 腳本末端渲染，確保編譯完成後立即啟動
-        const rootElement = document.getElementById('root');
-        if (rootElement) {
-            try {
-                const root = ReactDOM.createRoot(rootElement);
-                root.render(<App />);
-            } catch (err) {
-                console.error("Render Error:", err);
-                // 發生錯誤時嘗試移除載入畫面以便除錯
-                const loader = document.getElementById('loader');
-                if (loader) loader.style.display = 'none';
+        // 確保 DOM 加載完畢且 Babel 編譯完成後啟動
+        const init = () => {
+            const rootElement = document.getElementById('root');
+            if (rootElement) {
+                try {
+                    const root = ReactDOM.createRoot(rootElement);
+                    root.render(<App />);
+                } catch (err) {
+                    console.error("App Render Error:", err);
+                    document.getElementById('loader').innerHTML = '<p style="color:red; font-size:12px;">啟動失敗，請重新整理</p>';
+                }
             }
+        };
+
+        // 監聽 DOM 準備狀態
+        if (document.readyState === 'complete') {
+            init();
+        } else {
+            window.addEventListener('load', init);
         }
     </script>
 </body>
