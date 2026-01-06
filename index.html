@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Habit Tracker 2026</title>
-    <!-- 使用標準 CDN -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- 引入核心套件：使用穩定 CDN 與正確的跨域設定 -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入細圓體 -->
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
@@ -18,24 +18,42 @@
             background-color: #020617; 
             margin: 0;
             user-select: none;
+            color: white;
+            overflow: hidden;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
         @keyframes pop { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .animate-pop { animation: pop 0.2s ease-out forwards; }
-        
-        /* 避免在預覽中出現閃爍 */
-        [v-cloak] { display: none; }
+
+        /* 初始載入畫面：增加更高層級，確保完全覆蓋 */
+        #loader {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #020617;
+            z-index: 9999;
+            transition: opacity 0.4s ease;
+        }
     </style>
 </head>
 <body>
+    <div id="loader">
+        <div class="flex flex-col items-center gap-4">
+            <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p class="text-sm font-bold opacity-50 tracking-widest">HABIT 2026 啟動中</p>
+        </div>
+    </div>
+
     <div id="root"></div>
 
     <script type="text/babel">
         const { useState, useEffect, useMemo, useRef } = React;
 
-        // --- 內建圖示 (SVG 直接寫入，避免 CDN 載入失敗導致程式碼壞掉) ---
+        // --- 內建圖示 ---
         const Icon = ({ name, className = "w-5 h-5" }) => {
             const icons = {
                 droplets: <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>,
@@ -52,7 +70,8 @@
                 chevronLeft: <polyline points="15 18 9 12 15 6"/>,
                 chevronRight: <polyline points="9 18 15 12 9 6"/>,
                 trash: <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>,
-                sun: <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                sun: <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>,
+                sparkles: <path d="m12 3 1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3z"/>
             };
             return (
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -85,8 +104,17 @@
             const [view, setView] = useState('daily');
             const [currentDate, setCurrentDate] = useState(new Date());
             const [themeMode, setThemeMode] = useState('night');
-            const [modal, setModal] = useState(null); // 'edit', 'settings'
+            const [modal, setModal] = useState(null);
             const [editingHabit, setEditingHabit] = useState(null);
+
+            // 當 React 成功執行時，隱藏載入動畫
+            useEffect(() => {
+                const loader = document.getElementById('loader');
+                if (loader) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => loader.style.display = 'none', 500);
+                }
+            }, []);
 
             useEffect(() => {
                 localStorage.setItem('habit_logs', JSON.stringify(logs));
@@ -124,9 +152,12 @@
             };
 
             return (
-                <div className={`min-h-screen ${theme.bg} ${theme.text} flex justify-center`}>
+                <div className={`min-h-screen ${theme.bg} ${theme.text} flex justify-center animate-pop overflow-y-auto`}>
                     <div className="w-full max-w-md min-h-screen flex flex-col relative bg-inherit shadow-2xl overflow-hidden">
                         
+                        {/* 背景飾光 */}
+                        <div className={`absolute top-0 w-full h-64 blur-[100px] opacity-10 pointer-events-none bg-gradient-to-b ${theme.grad}`} />
+
                         {/* Header */}
                         <header className="p-6 pb-0 z-10">
                             <div className="flex justify-between items-center mb-6">
@@ -138,24 +169,24 @@
                                     </div>
                                 </div>
                                 <div className="flex gap-2">
-                                    <button onClick={() => setModal('settings')} className="p-2 opacity-50"><Icon name="settings" /></button>
+                                    <button onClick={() => setModal('settings')} className="p-2 opacity-50 hover:opacity-100 transition-opacity"><Icon name="settings" /></button>
                                     <div className="flex bg-white/10 p-1 rounded-xl backdrop-blur-sm">
-                                        <button onClick={()=>setView('daily')} className={`p-2 rounded-lg ${view==='daily'?'bg-white/20 shadow-sm':'opacity-40'}`}><Icon name="layout" /></button>
-                                        <button onClick={()=>setView('weekly')} className={`p-2 rounded-lg ${view==='weekly'?'bg-white/20 shadow-sm':'opacity-40'}`}><Icon name="calendar" /></button>
+                                        <button onClick={()=>setView('daily')} className={`p-2 rounded-lg transition-all ${view==='daily'?'bg-white/20 shadow-sm text-white':'opacity-40'}`}><Icon name="layout" /></button>
+                                        <button onClick={()=>setView('weekly')} className={`p-2 rounded-lg transition-all ${view==='weekly'?'bg-white/20 shadow-sm text-white':'opacity-40'}`}><Icon name="calendar" /></button>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="flex items-center justify-between p-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md">
-                                <button onClick={() => { const d = new Date(currentDate); d.setDate(d.getDate() - (view === 'daily' ? 1 : 7)); setCurrentDate(d); }}><Icon name="chevronLeft" className="opacity-50"/></button>
+                                <button onClick={() => { const d = new Date(currentDate); d.setDate(d.getDate() - (view === 'daily' ? 1 : 7)); setCurrentDate(d); }} className="p-1"><Icon name="chevronLeft" className="opacity-50"/></button>
                                 <span className="font-bold text-base">
-                                    {view === 'daily' ? currentDate.toLocaleDateString('zh-TW', { month: 'long', day: 'numeric', weekday: 'short' }) : `${weekStart.getMonth()+1}/${weekStart.getDate()} 當週`}
+                                    {view === 'daily' ? currentDate.toLocaleDateString('zh-TW', { month: 'long', day: 'numeric', weekday: 'short' }) : `${weekStart.getMonth()+1}/${weekStart.getDate()} 當週概覽`}
                                 </span>
-                                <button onClick={() => { const d = new Date(currentDate); d.setDate(d.getDate() + (view === 'daily' ? 1 : 7)); setCurrentDate(d); }}><Icon name="chevronRight" className="opacity-50"/></button>
+                                <button onClick={() => { const d = new Date(currentDate); d.setDate(d.getDate() + (view === 'daily' ? 1 : 7)); setCurrentDate(d); }} className="p-1"><Icon name="chevronRight" className="opacity-50"/></button>
                             </div>
                         </header>
 
-                        {/* Content */}
+                        {/* 主要內容 */}
                         <main className="flex-1 p-6 overflow-y-auto no-scrollbar">
                             {view === 'daily' ? (
                                 habits.map(h => {
@@ -167,10 +198,10 @@
                                                 <div className={`p-3 rounded-xl ${done ? 'bg-white/20' : 'bg-black/5 dark:bg-white/5'}`}><Icon name={h.icon} className="w-6 h-6"/></div>
                                                 <div>
                                                     <div className="font-bold text-lg leading-tight">{h.title}</div>
-                                                    <div className="text-xs opacity-60">本週: {getWeeklyCount(h.id)}/{h.goalPerWeek} {h.unit}</div>
+                                                    <div className={`text-xs ${done ? 'opacity-80' : 'opacity-40'}`}>本週: {getWeeklyCount(h.id)}/{h.goalPerWeek} {h.unit}</div>
                                                 </div>
                                             </div>
-                                            <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${done ? 'bg-white border-white' : 'border-current opacity-20'}`}>
+                                            <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all ${done ? 'bg-white border-white scale-110' : 'border-current opacity-20'}`}>
                                                 {done && <Icon name="check" className={`w-5 h-5 ${c.text}`} />}
                                             </div>
                                         </div>
@@ -182,11 +213,11 @@
                                         <div>習慣</div>
                                         {['一','二','三','四','五','六','日'].map((l, i) => {
                                             const d = new Date(weekStart); d.setDate(d.getDate()+i);
-                                            return <div key={i}><div className="text-[10px] opacity-50">{d.getDate()}</div>{l}</div>
+                                            return <div key={i}><div className="text-sm text-blue-400 font-bold mb-1">{d.getDate()}</div>{l}</div>
                                         })}
                                     </div>
                                     {habits.map(h => (
-                                        <div key={h.id} className="grid grid-cols-[80px_repeat(7,1fr)] gap-2 items-center mb-5">
+                                        <div key={h.id} className="grid grid-cols-[80px_repeat(7,1fr)] gap-2 items-center mb-6">
                                             <div className="text-sm font-bold truncate pr-2 opacity-80">{h.title}</div>
                                             {[0,1,2,3,4,5,6].map(i => {
                                                 const d = new Date(weekStart); d.setDate(d.getDate() + i);
@@ -194,7 +225,7 @@
                                                 const done = !!logs[`${h.id}-${dS}`];
                                                 return (
                                                     <div key={i} className="flex justify-center" onClick={() => toggle(h.id, dS)}>
-                                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${done ? `bg-gradient-to-br ${THEMES[h.color].from} ${THEMES[h.color].to} text-white shadow-md` : 'bg-white/5 border border-white/10'}`}>
+                                                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer ${done ? `bg-gradient-to-br ${THEMES[h.color].from} ${THEMES[h.color].to} text-white shadow-md` : 'bg-white/5 border border-white/10'}`}>
                                                             {done && <Icon name="check" className="w-5 h-5" />}
                                                         </div>
                                                     </div>
@@ -206,17 +237,17 @@
                             )}
                         </main>
 
-                        {/* FAB */}
+                        {/* 懸浮按鈕 */}
                         <button onClick={() => { setEditingHabit(null); setModal('edit'); }} className={`fixed bottom-8 right-8 w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center text-white bg-gradient-to-r ${theme.grad} active:scale-90 transition-transform z-40 border border-white/20`}><Icon name="plus" className="w-8 h-8"/></button>
 
-                        {/* Modals */}
+                        {/* 彈出視窗 */}
                         {modal && (
-                            <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
-                                <div className={`w-full max-w-xs p-6 rounded-3xl ${theme.card} border ${theme.border} animate-pop shadow-2xl`}>
-                                    <div className="flex justify-between items-center mb-6"><h2 className="font-black text-xl">{modal === 'settings' ? '資料管理' : (editingHabit ? '編輯習慣' : '新習慣')}</h2><button onClick={()=>setModal(null)}><Icon name="x" className="w-6 h-6"/></button></div>
+                            <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm animate-pop">
+                                <div className={`w-full max-w-xs p-6 rounded-3xl ${theme.card} border ${theme.border} shadow-2xl`}>
+                                    <div className="flex justify-between items-center mb-6"><h2 className="font-black text-xl">{modal === 'settings' ? '資料管理' : (editingHabit ? '編輯習慣' : '新習慣')}</h2><button onClick={()=>setModal(null)} className="p-1"><Icon name="x" className="w-6 h-6 opacity-50"/></button></div>
                                     {modal === 'settings' ? (
                                         <div className="space-y-4">
-                                            <button onClick={() => { const b = new Blob([JSON.stringify({logs, habits})], {type:'application/json'}); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download='backup.json'; a.click(); }} className="w-full p-4 rounded-2xl border border-white/10 bg-white/5 flex justify-between items-center font-bold"><span>下載備份 (.json)</span><Icon name="download" className="w-5 h-5"/></button>
+                                            <button onClick={() => { const b = new Blob([JSON.stringify({logs, habits})], {type:'application/json'}); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download='habit-backup.json'; a.click(); }} className="w-full p-4 rounded-2xl border border-white/10 bg-white/5 flex justify-between items-center font-bold"><span>下載備份 (.json)</span><Icon name="download" className="w-5 h-5"/></button>
                                             <p className="text-[10px] opacity-40 text-center leading-relaxed">提示：資料存於瀏覽器中，清除快取後會消失。</p>
                                         </div>
                                     ) : (
@@ -226,15 +257,21 @@
                                             const nH = { id: editingHabit?.id || `h-${Date.now()}`, title: fd.get('title'), goalPerWeek: parseInt(fd.get('goalPerWeek')), unit: fd.get('unit'), icon: editingHabit?.icon || 'sparkles', color: editingHabit?.color || 'cyan' };
                                             setHabits(prev => editingHabit ? prev.map(h => h.id === nH.id ? nH : h) : [...prev, nH]);
                                             setModal(null);
-                                        }} className="space-y-4 text-slate-800">
-                                            <input name="title" required defaultValue={editingHabit?.title} className="w-full p-4 rounded-xl border bg-stone-50" placeholder="習慣名稱" />
+                                        }} className="space-y-4 text-slate-800 dark:text-white">
+                                            <input name="title" required defaultValue={editingHabit?.title} className="w-full p-4 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-900 outline-none focus:border-blue-500 transition-colors" placeholder="習慣名稱" />
                                             <div className="flex gap-2">
-                                                <input name="goalPerWeek" type="number" min="1" max="7" defaultValue={editingHabit?.goalPerWeek || 5} className="flex-1 p-4 rounded-xl border bg-stone-50" />
-                                                <input name="unit" defaultValue={editingHabit?.unit || '次'} className="flex-1 p-4 rounded-xl border bg-stone-50" />
+                                                <div className="flex-1">
+                                                    <label className="text-[10px] opacity-40 font-bold ml-1 uppercase">每週目標</label>
+                                                    <input name="goalPerWeek" type="number" min="1" max="7" defaultValue={editingHabit?.goalPerWeek || 5} className="w-full p-4 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-900 outline-none focus:border-blue-500" />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <label className="text-[10px] opacity-40 font-bold ml-1 uppercase">單位</label>
+                                                    <input name="unit" defaultValue={editingHabit?.unit || '次'} className="w-full p-4 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-900 outline-none focus:border-blue-500" />
+                                                </div>
                                             </div>
                                             <div className="flex gap-2 pt-2">
-                                                {editingHabit && <button type="button" onClick={() => { if(confirm('刪除？')){setHabits(habits.filter(h => h.id !== editingHabit.id)); setModal(null);} }} className="p-4 rounded-2xl bg-red-100 text-red-500"><Icon name="trash" className="w-5 h-5"/></button>}
-                                                <button type="submit" className={`flex-1 p-4 rounded-2xl text-white font-bold bg-gradient-to-r ${theme.grad} shadow-lg`}>儲存</button>
+                                                {editingHabit && <button type="button" onClick={() => { if(confirm('確定刪除？')){setHabits(habits.filter(h => h.id !== editingHabit.id)); setModal(null);} }} className="p-4 rounded-2xl bg-red-100 dark:bg-red-500/20 text-red-500"><Icon name="trash" className="w-5 h-5"/></button>}
+                                                <button type="submit" className={`flex-1 p-4 rounded-2xl text-white font-bold bg-gradient-to-r ${theme.grad} shadow-lg active:scale-95 transition-transform`}>儲存習慣</button>
                                             </div>
                                         </form>
                                     )}
@@ -246,8 +283,26 @@
             );
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        // --- 安全啟動機制 ---
+        const startApp = () => {
+            const rootElement = document.getElementById('root');
+            if (rootElement) {
+                try {
+                    const root = ReactDOM.createRoot(rootElement);
+                    root.render(<App />);
+                } catch (err) {
+                    console.error("React Start Error:", err);
+                    document.getElementById('loader').innerHTML = '<p class="text-red-500">載入出錯，請重新整理</p>';
+                }
+            }
+        };
+
+        // 確保所有資源載入後才執行
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startApp);
+        } else {
+            startApp();
+        }
     </script>
 </body>
 </html>
